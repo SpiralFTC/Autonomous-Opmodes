@@ -164,7 +164,7 @@ public class BeaconBlue extends Gyro{
             case 11:
                 //turn 225 degrees. Robot is parallel to mountain.
                 setDrivePowerNoEnc(+0.08f, -0.08f);
-                if (hasGyroReachedValue(225, MARGIN)) {
+                if (hasGyroReachedValue(225, MARGIN)) { 
                     setDrivePower(0.0f, 0.0f);
                     state++;
                 }
