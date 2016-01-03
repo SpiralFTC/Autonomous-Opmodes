@@ -18,7 +18,7 @@ public class BeaconBlue extends Gyro{
     private int x = 0;
     static int MARGIN = 2;
     private int turnValue = 0;
-//
+
     @Override
     public void init() {
         servoOne = hardwareMap.servo.get("arm");
