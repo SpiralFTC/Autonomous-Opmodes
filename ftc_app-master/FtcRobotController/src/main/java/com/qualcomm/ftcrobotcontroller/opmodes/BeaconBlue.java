@@ -5,7 +5,7 @@ import com.qualcomm.robotcore.hardware.DcMotorController;
 import com.qualcomm.robotcore.hardware.Servo;
 
 /**
- * Created by me on 12/29/2015.
+ * Created by Rohith_Sudhakar on 12/29/2015.
  *
  * Autonomous program - use distances to get to beacon
  */
