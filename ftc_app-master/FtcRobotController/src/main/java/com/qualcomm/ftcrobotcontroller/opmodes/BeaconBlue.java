@@ -27,7 +27,7 @@ public class BeaconBlue extends Gyro{
         gyroSensor.calibrate();
         if (gyroSensor.isCalibrating()) {
             sleep(400);
-        }
+        }//gives the gyro time to calibrate. 
         leftMotor = hardwareMap.dcMotor.get("left");
         rightMotor = hardwareMap.dcMotor.get("right");
         telemetry.addData("Yo init", state);
