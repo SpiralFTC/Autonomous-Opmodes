@@ -18,7 +18,7 @@ public class BeaconBlue extends Gyro{
     private int x = 0;
     static int MARGIN = 2;
     private int turnValue = 0;
-
+//
     @Override
     public void init() {
         servoOne = hardwareMap.servo.get("arm");
@@ -27,7 +27,7 @@ public class BeaconBlue extends Gyro{
         gyroSensor.calibrate();
         if (gyroSensor.isCalibrating()) {
             sleep(400);
-        }//gives the gyro time to calibrate. 
+        }//gives the gyro time to calibrate.
         leftMotor = hardwareMap.dcMotor.get("left");
         rightMotor = hardwareMap.dcMotor.get("right");
         telemetry.addData("Yo init", state);
@@ -163,15 +163,15 @@ public class BeaconBlue extends Gyro{
                 break;
             case 11:
                 //turn 225 degrees. Robot is parallel to mountain.
-                setDrivePowerNoEnc(+0.08f, -0.08f);
-                if (hasGyroReachedValue(225, MARGIN)) {
+                setDrivePowerNoEnc(-0.08f, +0.08f);
+                if (hasGyroReachedValue(210, MARGIN)) {
                     setDrivePower(0.0f, 0.0f);
                     state++;
                 }
                 break;
             case 12:
                 //Move 80 cm. Robot is in line with the center of the mountain.
-                count = calculateEncoderCountFromDistance(80);
+                count = calculateEncoderCountFromDistance(72);
                 setDrivePower(0.1,0.1);
                 if(haveEncodersReached(count,count)){
                     setDrivePower(0.0f,0.0f);
