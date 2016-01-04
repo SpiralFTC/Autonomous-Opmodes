@@ -73,7 +73,7 @@ public class FtcOpModeRegister implements OpModeRegister {
 
 
 
-
+//
 // manager.register("Light Sensor Test", LightTest.class);
 //  manager.register("All Test",AllTest.class);
 
