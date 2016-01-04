@@ -172,7 +172,7 @@ public class BlueFarSideAutonomous extends Gyro {
                 break;
             case 14:
                 //Move 80 cm. Robot is in line with the center of the mountain.
-                count = calculateEncoderCountFromDistanceR(72);
+                count = calculateEncoderCountFromDistanceR(85);
                 setDrivePower(0.1, 0.1);
                 if (haveEncodersReached(count, count)) {
                     setDrivePower(0.0f, 0.0f);
