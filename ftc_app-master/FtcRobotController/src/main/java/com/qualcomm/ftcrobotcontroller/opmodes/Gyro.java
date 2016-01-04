@@ -212,6 +212,19 @@ public abstract class Gyro extends Gyro_Programs {
         return revolutions * 1072;
         //1072 is the pulse per rotation constant that we calculate for. We have to return it like this.
     }
+    public double calculateEncoderCountFromDistanceR(int distance) {
+        //In this method, we calculate how many revolutions the encoders should check for.
+        double circumference = diameter * Math.PI;
+        //This calculates the circumference.
+        double legitDistance = distance -12.7;
+        //This takes in the wheel base for account
+        double revolutions = legitDistance / circumference;
+        //We need to take distance and convert it into centimeters. This line specifies that.
+        //By taking the circumference, one revolution, and dividing the number of centimeters
+        //we want to move for, we convert it into revolutions.
+        return revolutions * 1072;
+        //1072 is the pulse per rotation constant that we calculate for. We have to return it like this.
+    }
 
     public void setDrivePower(double right, double left) {
         //In this method we set the power for each motor. Pretty self explanatory
