@@ -58,7 +58,7 @@ public class FtcOpModeRegister implements OpModeRegister {
     manager.register("BeBlue",BeaconBlue.class);
     manager.register("BeRed",BeaconRed.class);
     manager.register("YamaBlue",MountianBlue.class);
-
+    manager.register("YamaRed",MountainnRed.class);
     //manager.register ("Beacon", Autonomous.class);
 
     /*

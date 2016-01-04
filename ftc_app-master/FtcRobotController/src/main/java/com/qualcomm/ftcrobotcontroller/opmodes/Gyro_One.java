@@ -17,7 +17,7 @@ public class Gyro_One extends OpMode {
     @Override
     public void loop() {
         int y = gyroSensor.getHeading();
-        telemetry.addData("Gyro",y);
+        telemetry.addData("Methods",y);
     }
 
     @Override

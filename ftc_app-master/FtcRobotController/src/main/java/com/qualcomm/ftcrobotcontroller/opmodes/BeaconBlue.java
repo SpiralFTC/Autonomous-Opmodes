@@ -9,14 +9,14 @@ import com.qualcomm.robotcore.hardware.Servo;
  *
  * Autonomous program - use distances to get to beacon
  */
-public class BeaconBlue extends Gyro{
+public class BeaconBlue extends Methods {
 
     Servo servoOne;
     Servo servoTwo;
 
     private int state = 0;
     private int x = 0;
-    static int MARGIN = 2;
+    //static int MARGIN = 2;
     private int turnValue = 0;
 
     @Override
@@ -49,7 +49,7 @@ public class BeaconBlue extends Gyro{
 
     @Override
     public void loop() {
-        telemetry.addData("Gyro Value", gyroSensor.getHeading());
+        telemetry.addData("Methods Value", gyroSensor.getHeading());
         telemetry.addData("Your state", state);
         //We print out our heading and state to see if anything incorrect is happening.
         //If there is an error, it usually has something to do with these 2 variables,

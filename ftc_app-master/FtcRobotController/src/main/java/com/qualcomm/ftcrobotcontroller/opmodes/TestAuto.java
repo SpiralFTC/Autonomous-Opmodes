@@ -7,7 +7,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 /**
  * Created by heel7 on 12/28/2015.
  */
-public class TestAuto extends Gyro {
+public class TestAuto extends Methods {
 
     Servo servoOne;
     Servo servoTwo;
@@ -44,7 +44,7 @@ public class TestAuto extends Gyro {
 
     @Override
     public void loop() {
-        telemetry.addData("Gyro Value", gyroSensor.getHeading());
+        telemetry.addData("Methods Value", gyroSensor.getHeading());
         switch (state) {
             case 0:
                 resetEncoders();

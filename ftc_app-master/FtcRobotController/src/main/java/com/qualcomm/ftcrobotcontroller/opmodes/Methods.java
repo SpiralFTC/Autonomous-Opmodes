@@ -1,12 +1,9 @@
 package com.qualcomm.ftcrobotcontroller.opmodes;
 
-import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorController;
-import com.qualcomm.robotcore.hardware.GyroSensor;
-import com.qualcomm.robotcore.util.Range;
 
 
-public abstract class Gyro extends Gyro_Programs {
+public abstract class Methods extends Constants {
 
     double diameter = 9.75 ;
     public static double oneRevolutiontreadLength = 14.8370192308;
@@ -46,60 +43,60 @@ public abstract class Gyro extends Gyro_Programs {
         return false;
     }
 
-
-    public  void gyroTurn(int d,double power,int range) {
-        leftMotor.setMode(DcMotorController.RunMode.RUN_WITHOUT_ENCODERS);
-        rightMotor.setMode(DcMotorController.RunMode.RUN_WITHOUT_ENCODERS);
-        boolean value = false;
-
-        int b = d - range;
-        int c = d + range;
-
-        if (d == 0) {
-
-            b = 0;
-            c = 2;
-        }
-
-        if (gyroSensor.getHeading() >= b && gyroSensor.getHeading() <= c ) {
-            value = true;
-        }
-
-        if (!value) {
-            a++;
-        }
-
-        switch (a) {
-            case 1:
-
-                leftMotor.setPower(0);
-                rightMotor.setPower(0);
-
-                break;
-
-
-            case 2:
-                a = 1;
-                if (gyroSensor.getHeading() < b) {
-                    rightMotor.setPower(-power);
-                    leftMotor.setPower(power);
-                    break;
-
-
-                } else if (gyroSensor.getHeading() > c) {
-                    rightMotor.setPower(power);
-                    leftMotor.setPower(-power);
-                    break;
-
-
-                }
-
-
-        }
-        leftMotor.setMode(DcMotorController.RunMode.RUN_USING_ENCODERS);
-        rightMotor.setMode(DcMotorController.RunMode.RUN_USING_ENCODERS);
-
-    }
+//
+//    public  void gyroTurn(int d,double power,int range) {
+//        leftMotor.setMode(DcMotorController.RunMode.RUN_WITHOUT_ENCODERS);
+//        rightMotor.setMode(DcMotorController.RunMode.RUN_WITHOUT_ENCODERS);
+//        boolean value = false;
+//
+//        int b = d - range;
+//        int c = d + range;
+//
+//        if (d == 0) {
+//
+//            b = 0;
+//            c = 2;
+//        }
+//
+//        if (gyroSensor.getHeading() >= b && gyroSensor.getHeading() <= c ) {
+//            value = true;
+//        }
+//
+//        if (!value) {
+//            a++;
+//        }
+//
+//        switch (a) {
+//            case 1:
+//
+//                leftMotor.setPower(0);
+//                rightMotor.setPower(0);
+//
+//                break;
+//
+//
+//            case 2:
+//                a = 1;
+//                if (gyroSensor.getHeading() < b) {
+//                    rightMotor.setPower(-power);
+//                    leftMotor.setPower(power);
+//                    break;
+//
+//
+//                } else if (gyroSensor.getHeading() > c) {
+//                    rightMotor.setPower(power);
+//                    leftMotor.setPower(-power);
+//                    break;
+//
+//
+//                }
+//
+//
+//        }
+//        leftMotor.setMode(DcMotorController.RunMode.RUN_USING_ENCODERS);
+//        rightMotor.setMode(DcMotorController.RunMode.RUN_USING_ENCODERS);
+//
+//    }
 
 
 
@@ -197,8 +194,7 @@ public abstract class Gyro extends Gyro_Programs {
 
     /**
      * Convert distance in centimeters to an encoder count
-     * @param distance
-     * @return
+     *
      */
     //In this class, we declare most of the methods that we use for autonomous.
     public double calculateEncoderCountFromDistance(int distance) {
@@ -209,7 +205,7 @@ public abstract class Gyro extends Gyro_Programs {
         //We need to take distance and convert it into centimeters. This line specifies that.
         //By taking the circumference, one revolution, and dividing the number of centimeters
         //we want to move for, we convert it into revolutions.
-        return revolutions * 1072;
+        return revolutions * ppr;
         //1072 is the pulse per rotation constant that we calculate for. We have to return it like this.
     }
 
