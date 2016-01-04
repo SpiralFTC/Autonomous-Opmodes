@@ -5,11 +5,7 @@ import com.qualcomm.robotcore.hardware.DcMotorController;
 import com.qualcomm.robotcore.hardware.Servo;
 
 /**
- * Created by heel7 on 12/29/2015.
- * This is an Autonomous Programme.
- * This Program goes to the Beacon from base when on the red team
- * The starting position for this Autonomous Programme is the second square
- * away from the mountain.
+ * Created by Rohith_Sudhakar on 12/29/2015.
  *
  * Autonomous program - use distances to get to beacon
  */
@@ -25,46 +21,55 @@ public class BeaconRed extends Gyro{
 
     @Override
     public void init() {
-        //Initializes everything, making sure that the vars know their physical counterpart on the config file
         servoOne = hardwareMap.servo.get("arm");
         servoTwo = hardwareMap.servo.get("leftS");
         gyroSensor = hardwareMap.gyroSensor.get("gyro");
         gyroSensor.calibrate();
         if (gyroSensor.isCalibrating()) {
             sleep(400);
-        }
+        }//gives the gyro time to calibrate.
         leftMotor = hardwareMap.dcMotor.get("left");
         rightMotor = hardwareMap.dcMotor.get("right");
         telemetry.addData("Yo init", state);
+        //In our init method, we hardware map our motors and print out our state value.
+        //State is a variable which keeps track of the case we are on in our loop method.
+        //We also calibrate the gyrosensor.
     }
 
     @Override
     public void start() {
         super.start();
-        servoOne.setPosition(0);//Makes sure the Servo is in the right position
 
         leftMotor.setDirection(DcMotor.Direction.REVERSE);
         leftMotor.setMode(DcMotorController.RunMode.RESET_ENCODERS);
         rightMotor.setMode(DcMotorController.RunMode.RESET_ENCODERS);
+        //In the start, we reset the encoders and set the direction of the motor.
 
     }
 
     @Override
     public void loop() {
         telemetry.addData("Gyro Value", gyroSensor.getHeading());
+        telemetry.addData("Your state", state);
+        //We print out our heading and state to see if anything incorrect is happening.
+        //If there is an error, it usually has something to do with these 2 variables,
+        //so we keep track of that in case we need to make changes during the competition.
         switch (state) {
-            case 0:
-                //Resets the Encoders of the motors
+            //We use a switch because autonomous is done in a loop. This was done in the sample program.
+            //The reason why we use a switch is because it will keep looping through a case until a
+            //condition is met. If that condition is met, it moves up the case number that we want to be on.
+            //The program breaks from the case after it is done, but if not,
+            //the robot will continue to try to execute the task.
+            case 0://reset the encoders to be safe
                 resetEncoders();
                 state++;
                 break;
             case 1: // move 2 squares
                 useEncoders();
 
-                double count = calculateEncoderCountFromDistance(109);//Calculates the amount of "ticks" the encoder should move(in cm))
+                double count = calculateEncoderCountFromDistance(109);
 
-
-                setDrivePower(0.3, 0.3);//Makes the motor moves at that power
+                setDrivePower(0.3, 0.3);
 
                 //
                 // Have the motor shafts turned the required amount?
@@ -72,92 +77,123 @@ public class BeaconRed extends Gyro{
                 // If they haven't, then the op-mode remains in this state (i.e this
                 // block will be executed the next time this method is called).
                 //
-                if (haveEncodersReached(count, count)) {//This checks if the encoder have reached the acount
+                if (haveEncodersReached(count, count)) {
 
                     //
                     // Stop the motors.
                     //
                     setDrivePower(0.0f, 0.0f);
                     resetEncoders();
+                    //reset the encoders
                     state++;
                 }
                 break;
 
-            case 2:///Second Case: Makes sure the encoders have finished resetting
+            case 2:
                 if (haveDriverEncodersReset()) {
                     state++;
+                    //reseting the encoders takes time, so once it is completed, we go to the next case.
                 }
 
                 break;
             case 3:
-                // turn 45 degrees
-                setDrivePowerNoEnc(+0.08f, -0.08f);//Tells motors to move without Encoders
-                if (hasGyroReachedValue(315, MARGIN)) {//Checks if motor has reached value
-                    setDrivePower(0.0f, 0.0f);//stops if true
+                // turn 315 degrees
+                setDrivePowerNoEnc(+0.08f, -0.08f);
+                //set one motor to go one way, and the other motor to go the other way.
+                //This allows the robot to do a dual wheel turn
+                //For turning, we don't need the encoders,
+                if (hasGyroReachedValue(315, MARGIN)) {
+                    //if we have reached the correct value, we set the motor power to 0, and move up a case,
+                    setDrivePower(0.0f, 0.0f);
                     state++;
+                    //Please note that this program is eerily similar to our Blue version of the beacon.
+                    //This is because it should essentially be the same, except reflected.
+                    //So every turn must be done as (360-value specified in the blue beacon).
                 }
+
                 break;
             case 4: // move 1 1/2 squares
-                useEncoders();//Turns on encodes, as they were previously turned off
-                count = calculateEncoderCountFromDistance(116);// Again, calculates the amount of ticks
-                setDrivePower(0.3, 0.3);//and makes the robot move forward
-                if (haveEncodersReached(count, count)) {//checks if the "ticks" have reached the count
-                    setDrivePower(0.0f, 0.0f);//stops the robot
+                useEncoders();
+                count = calculateEncoderCountFromDistance(116);
+                setDrivePower(0.3, 0.3);
+                if (haveEncodersReached(count, count)) {
+                    setDrivePower(0.0f, 0.0f);
                     resetEncoders();
                     state++;
                 }
                 break;
             case 5:
                 if (haveDriverEncodersReset()) {
-                    state++;//Again, checks if encoders are reset
+                    state++;
                 }
                 break;
             case 6:
-                // turn another 45 degrees
-                setDrivePowerNoEnc(+0.08f, -0.08f);//Turns off encoders, and makes the robot move at the specified power
-                if (hasGyroReachedValue(270, MARGIN)) {//Checks if the gyro has reached that heading
-                    setDrivePower(0.0f, 0.0f);//If it has, it will stop moving
+                // turn another 270 degrees
+                setDrivePowerNoEnc(+0.08f, -0.08f);
+                if (hasGyroReachedValue(270, MARGIN)) {
+                    setDrivePower(0.0f, 0.0f);
                     state++;
                 }
                 break;
-             // move till wall
-            case 7:
-                count = calculateEncoderCountFromDistance(20);//Calculate how far the encoder has to move
-                setDrivePower(0.1,0.1);//makes the both motors move at that speed
-                if(haveEncodersReached(count,count)){//If both left and right motors have reached the calculated amount...
-                    setDrivePower(0.0f,0.0f);//It will stop
-                    resetEncoders();//And resets encoders
-                    state++;
-                }
 
+            case 7: // move till the wall.
+                count = calculateEncoderCountFromDistance(20);
+                setDrivePower(0.1,0.1);
+                if(haveEncodersReached(count,count)){
+                    setDrivePower(0.0f,0.0f);
+                    resetEncoders();
+                    state++;
+                }
                 break;
-            case 8: if(haveDriverEncodersReset()){
-                state++;
-                //Again, making sure the Encoders fully reset before moving on
-            }
-                break;
-            case 9:
-                servoOne.setPosition(1);//makes the servo move to its maximum level
-                if(servoOne.getPosition()==1){//Checks if it reached so it can move on
+            case 8:
+                if(haveDriverEncodersReset()){
+                    state++;
+                }
+            case 9://lower the arm. This drops the climbers
+                servoOne.setPosition(1);
+                if(servoOne.getPosition()==1){
                     state++;
 
                 }
                 break;
             case 10:
-                servoOne.setPosition(0);//moves servo back to its original position
-                if(servoOne.getPosition()==0){//checks that its there so it can move on.
+                //raise the arm.
+                servoOne.setPosition(0);
+                if(servoOne.getPosition()==0){
                     state++;
 
                 }
                 break;
+            case 11:
+                //turn 150 degrees. Robot is parallel to mountain.
+                setDrivePowerNoEnc(+0.08f, -0.08f);
+                if (hasGyroReachedValue(150, MARGIN)) {
+                    setDrivePower(0.0f, 0.0f);
+                    state++;
+                }
+                break;
+            case 12:
+                //Move 47 cm. Robot is in line with the center of the mountain.
+                count = calculateEncoderCountFromDistance(47);
+                setDrivePower(0.1,0.1);
+                if(haveEncodersReached(count,count)){
+                    setDrivePower(0.0f,0.0f);
+                    resetEncoders();
+                    state++;
+                }
+                break;
+            case 13:
+                //Turn to face the mountain.
+
+                setDrivePowerNoEnc(-0.08f, +0.08f);
+                if (hasGyroReachedValue(210, MARGIN)) {
+                    setDrivePower(0.0f, 0.0f);
+                    state++;
+                }
+                break;
+
             default:
                 break;
         }
-        telemetry.addData("Random Value", state);//Prints the value of state
-    }
-
-    @Override
-    public void stop() {
-        super.stop();
     }
 }

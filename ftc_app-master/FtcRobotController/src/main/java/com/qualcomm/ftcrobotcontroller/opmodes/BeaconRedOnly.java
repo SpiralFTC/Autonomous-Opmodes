@@ -9,7 +9,7 @@ import com.qualcomm.robotcore.hardware.Servo;
  *
  * Autonomous program - use distances to get to beacon
  */
-public class BeaconBlue extends Gyro{
+public class BeaconRedOnly extends Gyro{
 
     Servo servoOne;
     Servo servoTwo;
@@ -53,14 +53,14 @@ public class BeaconBlue extends Gyro{
         telemetry.addData("Your state", state);
         //We print out our heading and state to see if anything incorrect is happening.
         //If there is an error, it usually has something to do with these 2 variables,
-        //so we keep track of that.
+        //so we keep track of that in case we need to make changes during the competition.
         switch (state) {
             //We use a switch because autonomous is done in a loop. This was done in the sample program.
             //The reason why we use a switch is because it will keep looping through a case until a
             //condition is met. If that condition is met, it moves up the case number that we want to be on.
-            //The program breaks from the case If not,
+            //The program breaks from the case after it is done, but if not,
             //the robot will continue to try to execute the task.
-            case 0:
+            case 0://reset the encoders to be safe
                 resetEncoders();
                 state++;
                 break;
@@ -97,15 +97,18 @@ public class BeaconBlue extends Gyro{
 
                 break;
             case 3:
-                // turn 45 degrees
-                setDrivePowerNoEnc(-0.08f, +0.08f);
+                // turn 315 degrees
+                setDrivePowerNoEnc(+0.08f, -0.08f);
                 //set one motor to go one way, and the other motor to go the other way.
                 //This allows the robot to do a dual wheel turn
                 //For turning, we don't need the encoders,
-                if (hasGyroReachedValue(45, MARGIN)) {
+                if (hasGyroReachedValue(315, MARGIN)) {
                     //if we have reached the correct value, we set the motor power to 0, and move up a case,
                     setDrivePower(0.0f, 0.0f);
                     state++;
+                    //Please note that this program is eerily similar to our Blue version of the beacon.
+                    //This is because it should essentially be the same, except reflected.
+                    //So every turn must be done as (360-value specified in the blue beacon).
                 }
 
                 break;
@@ -125,9 +128,9 @@ public class BeaconBlue extends Gyro{
                 }
                 break;
             case 6:
-                // turn another 45 degrees
-                setDrivePowerNoEnc(-0.08f, +0.08f);
-                if (hasGyroReachedValue(90, MARGIN)) {
+                // turn another 270 degrees
+                setDrivePowerNoEnc(+0.08f, -0.08f);
+                if (hasGyroReachedValue(270, MARGIN)) {
                     setDrivePower(0.0f, 0.0f);
                     state++;
                 }
@@ -159,33 +162,6 @@ public class BeaconBlue extends Gyro{
                 if(servoOne.getPosition()==0){
                     state++;
 
-                }
-                break;
-            case 11:
-                //turn 225 degrees. Robot is parallel to mountain.
-                setDrivePowerNoEnc(-0.08f, +0.08f);
-                if (hasGyroReachedValue(210, MARGIN)) {
-                    setDrivePower(0.0f, 0.0f);
-                    state++;
-                }
-                break;
-            case 12:
-                //Move 80 cm. Robot is in line with the center of the mountain.
-                count = calculateEncoderCountFromDistance(72);
-                setDrivePower(0.1,0.1);
-                if(haveEncodersReached(count,count)){
-                    setDrivePower(0.0f,0.0f);
-                    resetEncoders();
-                    state++;
-                }
-                break;
-            case 13:
-                //Turn to face the mountain.
-
-                setDrivePowerNoEnc(+0.08f, -0.08f);
-                if (hasGyroReachedValue(120, MARGIN)) {
-                    setDrivePower(0.0f, 0.0f);
-                    state++;
                 }
                 break;
 

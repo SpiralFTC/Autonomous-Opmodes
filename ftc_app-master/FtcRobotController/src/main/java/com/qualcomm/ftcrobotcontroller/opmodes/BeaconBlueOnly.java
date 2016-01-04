@@ -5,11 +5,11 @@ import com.qualcomm.robotcore.hardware.DcMotorController;
 import com.qualcomm.robotcore.hardware.Servo;
 
 /**
- * Created by Rohith_Sudhakar on 12/29/2015.
+ * Created by RohithSudhakar on 12/29/2015.
  *
  * Autonomous program - use distances to get to beacon
  */
-public class BeaconBlue extends Gyro{
+public class BeaconBlueOnly extends Gyro{
 
     Servo servoOne;
     Servo servoTwo;
@@ -159,33 +159,6 @@ public class BeaconBlue extends Gyro{
                 if(servoOne.getPosition()==0){
                     state++;
 
-                }
-                break;
-            case 11:
-                //turn 225 degrees. Robot is parallel to mountain.
-                setDrivePowerNoEnc(-0.08f, +0.08f);
-                if (hasGyroReachedValue(210, MARGIN)) {
-                    setDrivePower(0.0f, 0.0f);
-                    state++;
-                }
-                break;
-            case 12:
-                //Move 80 cm. Robot is in line with the center of the mountain.
-                count = calculateEncoderCountFromDistance(72);
-                setDrivePower(0.1,0.1);
-                if(haveEncodersReached(count,count)){
-                    setDrivePower(0.0f,0.0f);
-                    resetEncoders();
-                    state++;
-                }
-                break;
-            case 13:
-                //Turn to face the mountain.
-
-                setDrivePowerNoEnc(+0.08f, -0.08f);
-                if (hasGyroReachedValue(120, MARGIN)) {
-                    setDrivePower(0.0f, 0.0f);
-                    state++;
                 }
                 break;
 
