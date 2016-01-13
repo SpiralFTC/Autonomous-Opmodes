@@ -54,7 +54,7 @@ public class Autonomous extends Methods {
                 casenumber++;
                 break;
             case 2:
-                gyroTurn(90, 0.075, 3);
+           //     gyroTurn(90, 0.075, 3);
                 if(gyroSensor.getHeading()>=90-3&&gyroSensor.getHeading()<90+3) {
                     casenumber++;
                 }
@@ -83,6 +83,6 @@ public class Autonomous extends Methods {
     }
     public void utonomusYo(){
 
-        gyroTurn(90, 0.075, 3);
+       // gyroTurn(90, 0.075, 3);
     }
 }

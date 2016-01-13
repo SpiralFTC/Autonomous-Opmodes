@@ -59,6 +59,7 @@ public class FtcOpModeRegister implements OpModeRegister {
     manager.register("BeRed",BeaconRed.class);
     manager.register("YamaBlue",MountianBlue.class);
     manager.register("YamaRed",MountainnRed.class);
+    manager.register("BeBlueReverse", BeaconBlueReverse.class);
     //manager.register ("Beacon", Autonomous.class);
 
     /*
@@ -91,6 +92,7 @@ public class FtcOpModeRegister implements OpModeRegister {
     //manager.register("PushBotIrSeek", PushBotIrSeek.java);
     //manager.register("PushBotSquare", PushBotSquare.java);
 
+    manager.register("reverse", Backwards.class);
     manager.register("Tankie", TankDrive.class);
    // manager.register("Light Sensor Test", LightTest.class);
     manager.register("Auto ",Autonomous.class);
