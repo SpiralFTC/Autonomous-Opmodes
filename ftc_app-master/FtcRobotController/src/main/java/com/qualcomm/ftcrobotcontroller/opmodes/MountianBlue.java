@@ -8,7 +8,7 @@ import com.qualcomm.robotcore.hardware.Servo;
  * Created by heel7 on 12/30/2015.
  */
 
-public class MountianBlue extends Gyro {
+public class MountianBlue extends Methods {
 
     Servo servoOne;
     Servo servoTwo;
@@ -43,7 +43,7 @@ public class MountianBlue extends Gyro {
 
     @Override
     public void loop() {
-        telemetry.addData("Gyro Value", gyroSensor.getHeading());
+        telemetry.addData("Methods Value", gyroSensor.getHeading());
         switch (state) {
             case 0:
                 resetEncoders();

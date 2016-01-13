@@ -44,7 +44,7 @@ import com.qualcomm.robotcore.hardware.GyroSensor;
 /*
  *
  * This is an example LinearOpMode that shows how to use
- * the Modern Robotics Gyro.
+ * the Modern Robotics Methods.
  *
  * The op mode assumes that the gyro sensor
  * is configured with a name of "gyro".

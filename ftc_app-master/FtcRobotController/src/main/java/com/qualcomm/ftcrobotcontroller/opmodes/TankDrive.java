@@ -15,8 +15,8 @@ public class TankDrive extends OpModeMethods {
     @Override
     public void loop() {
 
-        double rightPower = -gamepad1.left_stick_y;
-        double leftPower = -gamepad1.right_stick_y;
+        double rightPower = -gamepad1.right_stick_y;
+        double leftPower = -gamepad1.left_stick_y;
         rightPower = Range.clip(rightPower, -1, 1);
         leftPower = Range.clip(leftPower, -1, 1);
         right.setPower(leftPower);
