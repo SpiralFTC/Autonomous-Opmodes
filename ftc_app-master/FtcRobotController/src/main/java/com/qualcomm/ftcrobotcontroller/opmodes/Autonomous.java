@@ -12,7 +12,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 public class Autonomous extends Methods {
     Servo one;
     Servo two;
-
+    static int MARGIN = 2;
     private int state = 0;
     //Methods myGyro = new Methods();
 
@@ -22,10 +22,10 @@ public class Autonomous extends Methods {
         one = hardwareMap.servo.get("arm");
         two = hardwareMap.servo.get("leftS");
         gyroSensor = hardwareMap.gyroSensor.get("gyro");
-        // gyroSensor.calibrate();
-//        if (gyroSensor.isCalibrating()) {
-//            sleep(400);
-//        }
+         gyroSensor.calibrate();
+        if (gyroSensor.isCalibrating()) {
+            sleep(400);
+        }
 
         leftMotor = hardwareMap.dcMotor.get("left");
         rightMotor = hardwareMap.dcMotor.get("right");
@@ -45,30 +45,97 @@ public class Autonomous extends Methods {
 
     }
 
+
     @Override
     public void loop() {
-//        telemetry.addData("Methods Value", gyroSensor.getHeading());
-        telemetry.addData("States: ", state);
-
+        telemetry.addData("Left position Value", leftMotor.getCurrentPosition());
+        telemetry.addData("Right position Value", rightMotor.getCurrentPosition());
+        telemetry.addData("Your state", state);
         switch (state) {
             case 0:
-                //lift arm to drop climbers in beacon
-                one.setPosition(1);
-                if (one.getPosition() == 1) {
-                    state++;
-
-                }
+                resetEncoders();
+                state++;
                 break;
             case 1:
-                //return arm to original position
-                one.setPosition(0);
-                if (one.getPosition() == 0) {
-                    state ++;
-
+                if (haveDriverEncodersReset()) {
+                    state++;
+                    //reseting the encoders takes time, so once it is completed, we go to the next case.
                 }
                 break;
-          //  case 2:
-                //double count = calculateEncoderCountFromDistanceReverse(76);
+            case 2:
+                useEncoders();
+                setDrivePower(.5,.5);
+                double count = calculateEncoderCountFromDistanceRefined(76);
+                if (haveEncodersReached(count,count)){
+                    setDrivePower(0,0);
+
+                    resetEncoders();
+                    state++;
+                }
+                break;
+
+
+            case 3:
+            if (haveDriverEncodersReset()) {
+                state++;
+                //reseting the encoders takes time, so once it is completed, we go to the next case.
+            }
+            break;
+            case 4:
+                // turn another 45 degrees clockwise
+                setDrivePowerNoEnc(0.8f, -0.8f);
+                if (hasGyroReachedValue(50, MARGIN)) {
+                    setDrivePower(0.0f, 0.0f);
+                    state++;
+                }
+
+
+                break;
+            case 5:
+                useEncoders();
+                setDrivePower(.3,0.3);
+                count = calculateEncoderCountFromDistanceRefined(90);
+                if(haveEncodersReached(count,count)){
+                    setDrivePower(0.0f,0.0f);
+                    state++;
+                }
+                break;
+
+
+            case 6:
+                useEncoders();
+                setDrivePower(-.3,-0.3);
+                count = calculateEncoderCountFromDistanceRefined(90);
+                if(haveEncodersReached(count,count)){
+                    setDrivePower(0.0f,0.0f);
+                    state++;
+                }
+                break;
+            case 7:
+
+                // turn another 45 degrees clockwise
+                setDrivePowerNoEnc(0.8f, -0.8f);
+                if (hasGyroReachedValue(90, MARGIN)) {
+                    setDrivePower(0.0f, 0.0f);
+                    state++;
+                }
+
+
+                break;
+
+
+
+
+//            case 2:
+//                //return arm to original position
+//                one.setPosition(0);
+//                if (one.getPosition() == 0) {
+//                    state++;
+//
+//                }
+//                break;
+//            //  case 2:
+            //double count = calculateEncoderCountFromDistanceReverse(76);
 //                telemetry.addData("State2: ", state);
 //                rightMotor.setTargetPosition(1073);
 //                leftMotor.setTargetPosition(1073);
@@ -122,6 +189,7 @@ public class Autonomous extends Methods {
 
 
     }
+
 
     @Override
     public void stop() {

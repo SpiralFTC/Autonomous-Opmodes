@@ -47,20 +47,24 @@ public class BlueFarSideAutonomous extends Methods {
 
     @Override
     public void loop() {
-        telemetry.addData("Methods Value", gyroSensor.getHeading());
+        telemetry.addData("Gyro Value: ", gyroSensor.getHeading());
         telemetry.addData("State: ", state);
+        telemetry.addData("Left position Value", leftMotor.getCurrentPosition());
+        telemetry.addData("Right position Value", rightMotor.getCurrentPosition());
         switch (state) {
             case 0:
                 resetEncoders();
-                state++;
+                state+= 2;
                 break;
-            case 1: // move 1 square forward
+
+            case 2: // move 1 square forward
                 useEncoders();
+
+
 
                 double count = calculateEncoderCountFromDistanceRefined(76);
 
                 setDrivePower(.5, .5);
-
                 //
                 // Have the motor shafts turned the required amount?
                 //
@@ -79,84 +83,170 @@ public class BlueFarSideAutonomous extends Methods {
                 }
                 break;
 
-            case 2:
+
+            case 3:
                 if (haveDriverEncodersReset()) {
                     state++;
                 }
 
-                break;
-            case 3:
-                // turn 45 degrees clockwise
-                setDrivePowerNoEnc(0.6f, -0.6f);
-                if (hasGyroReachedValue(55, MARGIN)) {
-                    setDrivePower(0.0f, 0.0f);
-                    state++;
-                }
+
                 break;
             case 4: // move 3 squares diagonally
-                useEncoders();
-                count = calculateEncoderCountFromDistanceRefined(221);
-                setDrivePower(0.5, 0.5);
-                telemetry.addData("Encoder Count3: ", count);
-                if (haveEncodersReached(count, count)) {
+                // turn 45 degrees clockwise
+                setDrivePowerNoEnc(0.6f, -0.6f);
+                if (hasGyroReachedValue(50, MARGIN)) {
                     setDrivePower(0.0f, 0.0f);
-                    resetEncoders();
-                    state++;
+                    state+= 3;
                 }
-                break;
-            case 5:
-                //Check to make sure encoders are reset
-                if (haveDriverEncodersReset()) {
-                    state++;
-                }
-                break;
-            case 6:
-                // turn another 45 degrees clockwise
-                setDrivePowerNoEnc(0.8f, -0.8f);
-                if (hasGyroReachedValue(90, MARGIN)) {
-                    setDrivePower(0.0f, 0.0f);
-                    state++;
-                }
-                break;
 
+                break;
+//            case 5:
+//                resetEncoders();
+//                state++;
+//                break;
+//            case 6:
+//                if (haveDriverEncodersReset()) {
+//                    state++;
+//                    //reseting the encoders takes time, so once it is completed, we go to the next case.
+//                }
+//                break;
             case 7:
-                // move till wall
-                count = calculateEncoderCountFromDistanceRefined(80);
+                useEncoders();
+
+
+                count = calculateEncoderCountFromDistanceRefined(261);
                 setDrivePower(0.5, 0.5);
+
                 if (haveEncodersReached(count, count)) {
                     setDrivePower(0.0f, 0.0f);
                     resetEncoders();
-                    state++;
+                    state ++;
                 }
+
                 break;
             case 8:
-                //Check to make sure encoders are reset
-                if (haveDriverEncodersReset()) {
-                    state++;
-                }
-                break;
+                resetEncoders();
+                state ++;
+
+
+        break;
             case 9:
-                //lift arm to drop climbers in beacon
-               armPosition = 1;
-                servoOne.setPosition(armPosition);
-                if (servoOne.getPosition() == armPosition) {
+
+                if (haveDriverEncodersReset()) {
                     state++;
                 }
                 break;
             case 10:
-                //return arm to original position
-                armPosition = 0;
-               telemetry.addData("LOL" , armPosition);
-                break;
-            case 11:
-                //return arm to original position
+                useEncoders();
 
-                servoOne.setPosition(armPosition);
-                if (servoOne.getPosition() == armPosition) {
+                setDrivePower(-0.5, -0.5);
+                count = calculateEncoderCountFromDistanceRefined(31);
+
+                if (haveEncodersReached(count, count)) {
+                    setDrivePower(0.0f, 0.0f);
+                    resetEncoders();
+                    state++;
+                }
+
+                break;
+
+
+            case 11:
+                if (haveDriverEncodersReset()) {
                     state++;
                 }
                 break;
+
+
+//            case 9:
+//
+//                // move till wall
+//                setDrivePower(0.5, 0.5);
+//
+//                count = calculateEncoderCountFromDistanceRefined(60);
+//
+//                if (haveEncodersReached(count, count)) {
+//                    setDrivePower(0.0f, 0.0f);
+//                    resetEncoders();
+//                    state++;
+//                }
+//                break;
+//            case 10:
+//                //Check to make sure encoders are reset
+//                if (haveDriverEncodersReset()) {
+//                    state++;
+//                }
+//
+//                break;
 //            case 11:
+//                //lift arm to drop climbers in beacon
+//                armPosition = 1;
+//                servoOne.setPosition(armPosition);
+//                if (servoOne.getPosition() == armPosition) {
+//                    state++;
+//                }
+//
+//                break;
+//            case 12:
+//                //return arm to original position
+//                armPosition = 0;
+//                telemetry.addData("LOL", armPosition);
+//                state++;
+//
+//                break;
+//            case 13:
+//                //return arm to original position
+//
+//                servoOne.setPosition(armPosition);
+//                if (servoOne.getPosition() == armPosition) {
+//                    state++;
+//                }
+//                break;
+//
+//            case 14:
+//
+//                useEncoders();
+//                setDrivePower(-.3,-0.3);
+//                count = calculateEncoderCountFromDistance(20);
+//                if(haveEncodersReached(count,count)){
+//                    setDrivePower(0.0f,0.0f);
+//                    resetEncoders();
+//                    state++;
+//                }
+//                break;
+//
+//
+//            case 15:
+//                if (haveDriverEncodersReset()) {
+//                    state++;
+//                }
+//
+//                break;
+//            case 16:
+//                setDrivePowerNoEnc(0.8f, -0.8f);
+//                if (hasGyroReachedValue(180, MARGIN)) {
+//                    setDrivePower(0.0f, 0.0f);
+//                    state++;
+//                }
+//
+//
+//                break;
+//
+//            case 17:
+//
+//                useEncoders();
+//                setDrivePower(.3,0.3);
+//                count = calculateEncoderCountFromDistance(40);
+//                if(haveEncodersReached(count, count)){
+//                    setDrivePower(0.0f,0.0f);
+//                    resetEncoders();
+//                    state++;
+//                }
+//                break;
+
+            default:
+                break;
+
 //                //move back 1/2 square
 //
 //                 count = calculateEncoderCountFromDistance(-30);
@@ -201,8 +291,7 @@ public class BlueFarSideAutonomous extends Methods {
 //                }
 //                break;
 
-            default:
-                break;
+
 //            case 13:
 //                // rotate 90 degrees clockwise
 //                setDrivePowerNoEnc(-0.08f, +0.08f);
