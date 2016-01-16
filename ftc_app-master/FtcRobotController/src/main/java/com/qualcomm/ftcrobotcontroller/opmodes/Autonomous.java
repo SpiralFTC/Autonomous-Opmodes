@@ -10,15 +10,15 @@ import com.qualcomm.robotcore.hardware.Servo;
  * Created by heel7_000 on 12/4/2015.
  */
 public class Autonomous extends Methods {
-    Servo one;
+    Servo  climberServo;
     Servo two;
     private int casenumber = 0;
     //Methods myGyro = new Methods();
-
+    double climberArmPosition = 1;
 
     @Override
     public void init() {
-        one = hardwareMap.servo.get("arm");
+        climberServo = hardwareMap.servo.get("arm");
         two = hardwareMap.servo.get("leftS");
         gyroSensor = hardwareMap.gyroSensor.get("gyro");
         gyroSensor.calibrate();
@@ -28,13 +28,17 @@ public class Autonomous extends Methods {
 
         leftMotor = hardwareMap.dcMotor.get("left");
         rightMotor = hardwareMap.dcMotor.get("right");
-        telemetry.addData("Yo init", casenumber);
-        leftMotor.setDirection(DcMotor.Direction.REVERSE);
-        leftMotor.setMode(DcMotorController.RunMode.RESET_ENCODERS);
-        rightMotor.setMode(DcMotorController.RunMode.RESET_ENCODERS);
-
 
     }
+       @Override
+        public void start() {
+
+            leftMotor.setDirection(DcMotor.Direction.REVERSE);
+            leftMotor.setMode(DcMotorController.RunMode.RESET_ENCODERS);
+            rightMotor.setMode(DcMotorController.RunMode.RESET_ENCODERS);
+        }
+
+
 
     @Override
     public void loop() {
@@ -46,18 +50,24 @@ public class Autonomous extends Methods {
      //   sleep(500);
 //
         switch(casenumber){
-            case 0:
-                rightMotor.setPower(0);
-                leftMotor.setPower(0);
-             // utonomusYo();
 
-                casenumber++;
-                break;
-            case 2:
-           //     gyroTurn(90, 0.075, 3);
-                if(gyroSensor.getHeading()>=90-3&&gyroSensor.getHeading()<90+3) {
+
+
+            case 0:
+                climberServo.setPosition(climberArmPosition);
+                if (climberServo.getPosition() == climberArmPosition) {
+                   climberArmPosition = 1;
                     casenumber++;
                 }
+
+                break;
+            case 1:
+                climberServo.setPosition(climberArmPosition);
+                if (climberServo.getPosition() == climberArmPosition) {
+
+                    casenumber++;
+                }
+
                 break;
 
             default:

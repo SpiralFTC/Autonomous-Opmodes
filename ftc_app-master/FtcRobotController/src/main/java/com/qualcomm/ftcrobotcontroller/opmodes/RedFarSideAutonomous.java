@@ -6,9 +6,9 @@ import com.qualcomm.robotcore.hardware.DcMotorController;
 import com.qualcomm.robotcore.hardware.Servo;
 
 /**
- * Created by Choo Choo on 12/30/2015.
+ * Created by Rohith on 12/30/2015.
  */
-public class BlueFarSideAutonomous extends Methods {
+public class RedFarSideAutonomous extends Methods {
 
 
     @Override
@@ -23,7 +23,6 @@ public class BlueFarSideAutonomous extends Methods {
         }
         leftMotor = hardwareMap.dcMotor.get("left");
         rightMotor = hardwareMap.dcMotor.get("right");
-
         armLatchServo.setPosition(1);
 
     }
@@ -87,8 +86,8 @@ public class BlueFarSideAutonomous extends Methods {
                 break;
             case 3: // move 3 squares diagonally
                 // turn 45 degrees clockwise
-                setDrivePowerNoEnc(0.8f, -0.8);
-                if (hasGyroReachedValue(49, MARGIN)) {
+                setDrivePowerNoEnc(-0.8f, +0.8f);
+                if (hasGyroReachedValue(311, MARGIN)) {
                     setDrivePower(0.0f, 0.0f);
                     state++;
                 }
@@ -137,8 +136,8 @@ public class BlueFarSideAutonomous extends Methods {
                 }
                 break;
             case 8:
-                setDrivePowerNoEnc(0.8f, -0.8);
-                if (hasGyroReachedValue(90, MARGIN)) {
+                setDrivePowerNoEnc(-0.8f, +0.8f);
+                if (hasGyroReachedValue(270, MARGIN)) {
                     setDrivePower(0.0f, 0.0f);
                     state++;
                 }
@@ -168,7 +167,7 @@ public class BlueFarSideAutonomous extends Methods {
             case 11:
                 //lift arm to drop climbers in beacon
 
-                // climberServo.setPosition(climberArmPosition);
+                //  climberServo.setPosition(climberArmPosition);
                 ziplineServo.setPosition(climberArmPosition);
                 if (ziplineServo.getPosition() == climberArmPosition) {
                     climberArmPosition = 1;
@@ -181,15 +180,24 @@ public class BlueFarSideAutonomous extends Methods {
             case 12:
                 //return arm to original position
 
-               // climberServo.setPosition(climberArmPosition);
                 ziplineServo.setPosition(climberArmPosition);
                 if (ziplineServo.getPosition() == climberArmPosition) {
                     climberArmPosition = 0;
                     state+= 2;
                 }
                 break;
-
-
+//            case 13:
+//                resetEncoders();
+//                state++;
+//
+//                break;
+//            case 14:
+//                //Check to make sure encoders are reset
+//                if (haveDriverEncodersReset()) {
+//                    state++;
+//                }
+//
+//                break;
             case 15:
 
                 useEncoders();
@@ -210,7 +218,7 @@ public class BlueFarSideAutonomous extends Methods {
 
                 break;
             case 17:
-                setDrivePowerNoEnc(0.8f, -0.8f);
+                setDrivePowerNoEnc(-0.8f, +0.8f);
                 if (hasGyroReachedValue(180, MARGIN)) {
                     setDrivePower(0.0f, 0.0f);
                     state++;
