@@ -9,14 +9,14 @@ import com.qualcomm.robotcore.hardware.Servo;
  *
  * Autonomous program - use distances to get to beacon
  */
-public class BeaconRed extends Methods {
+public class BeaconBlueReverse extends Methods {
 
     Servo servoOne;
     Servo servoTwo;
 
     private int state = 0;
     private int x = 0;
-    static int MARGIN = 2;
+    //static int MARGIN = 2;
     private int turnValue = 0;
 
     @Override
@@ -53,14 +53,14 @@ public class BeaconRed extends Methods {
         telemetry.addData("Your state", state);
         //We print out our heading and state to see if anything incorrect is happening.
         //If there is an error, it usually has something to do with these 2 variables,
-        //so we keep track of that in case we need to make changes during the competition.
+        //so we keep track of that.
         switch (state) {
             //We use a switch because autonomous is done in a loop. This was done in the sample program.
             //The reason why we use a switch is because it will keep looping through a case until a
             //condition is met. If that condition is met, it moves up the case number that we want to be on.
-            //The program breaks from the case after it is done, but if not,
+            //The program breaks from the case If not,
             //the robot will continue to try to execute the task.
-            case 0://reset the encoders to be safe
+            case 0:
                 resetEncoders();
                 state++;
                 break;
@@ -97,18 +97,15 @@ public class BeaconRed extends Methods {
 
                 break;
             case 3:
-                // turn 315 degrees
-                setDrivePowerNoEnc(+0.08f, -0.08f);
+                // turn 45 degrees
+                setDrivePowerNoEnc(-0.08f, +0.08f);
                 //set one motor to go one way, and the other motor to go the other way.
                 //This allows the robot to do a dual wheel turn
                 //For turning, we don't need the encoders,
-                if (hasGyroReachedValue(315, MARGIN)) {
+                if (hasGyroReachedValue(45, MARGIN)) {
                     //if we have reached the correct value, we set the motor power to 0, and move up a case,
                     setDrivePower(0.0f, 0.0f);
                     state++;
-                    //Please note that this program is eerily similar to our Blue version of the beacon.
-                    //This is because it should essentially be the same, except reflected.
-                    //So every turn must be done as (360-value specified in the blue beacon).
                 }
 
                 break;
@@ -128,9 +125,9 @@ public class BeaconRed extends Methods {
                 }
                 break;
             case 6:
-                // turn another 270 degrees
-                setDrivePowerNoEnc(+0.08f, -0.08f);
-                if (hasGyroReachedValue(270, MARGIN)) {
+                // turn another 45 degrees
+                setDrivePowerNoEnc(-0.08f, +0.08f);
+                if (hasGyroReachedValue(90, MARGIN)) {
                     setDrivePower(0.0f, 0.0f);
                     state++;
                 }
@@ -149,6 +146,7 @@ public class BeaconRed extends Methods {
                 if(haveDriverEncodersReset()){
                     state++;
                 }
+                break;
             case 9://lower the arm. This drops the climbers
                 servoOne.setPosition(1);
                 if(servoOne.getPosition()==1){
@@ -165,16 +163,35 @@ public class BeaconRed extends Methods {
                 }
                 break;
             case 11:
-                //turn 150 degrees. Robot is parallel to mountain.
-                setDrivePowerNoEnc(+0.08f, -0.08f);
-                if (hasGyroReachedValue(150, MARGIN)) {
+               resetEncoders();
+                state++;
+                break;
+            case 12:
+                if(haveDriverEncodersReset()){
+                    state++;
+                }
+                break;
+            case 13:
+                useEncoders();
+                setDrivePower(-.3, -.3);
+                count = calculateEncoderCountFromDistance(40);
+                if(haveEncodersReached(count,count)){
+                    setDrivePower(0.0f,0.0f);
+                    resetEncoders();
+                    state++;
+                }
+                break;
+            case 14:
+                //turn 120 degrees. Robot is facing to mountain.
+                setDrivePowerNoEnc(-0.08f, +0.08f);
+                if (hasGyroReachedValue(120, MARGIN)) {
                     setDrivePower(0.0f, 0.0f);
                     state++;
                 }
                 break;
-            case 12:
-                //Move 47 cm. Robot is in line with the center of the mountain.
-                count = calculateEncoderCountFromDistance(47);
+            case 15:
+                //Move forward to the mountain.
+                count = calculateEncoderCountFromDistance(72);
                 setDrivePower(0.1,0.1);
                 if(haveEncodersReached(count,count)){
                     setDrivePower(0.0f,0.0f);
@@ -182,12 +199,8 @@ public class BeaconRed extends Methods {
                     state++;
                 }
                 break;
-            case 13:
-                //Turn to face the mountain.
-
-                setDrivePowerNoEnc(-0.08f, +0.08f);
-                if (hasGyroReachedValue(210, MARGIN)) {
-                    setDrivePower(0.0f, 0.0f);
+            case 16:
+                if(haveDriverEncodersReset()){
                     state++;
                 }
                 break;

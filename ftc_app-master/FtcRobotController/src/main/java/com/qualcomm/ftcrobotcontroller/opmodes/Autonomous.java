@@ -1,21 +1,19 @@
 package com.qualcomm.ftcrobotcontroller.opmodes;
 
-import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorController;
-import com.qualcomm.robotcore.hardware.GyroSensor;
 import com.qualcomm.robotcore.hardware.Servo;
 
-//import static com.qualcomm.ftcrobotcontroller.opmodes.Gyro.gyroTurn;
+//import static com.qualcomm.ftcrobotcontroller.opmodes.Methods.gyroTurn;
 
 /**
  * Created by heel7_000 on 12/4/2015.
  */
-public class Autonomous extends Gyro {
+public class Autonomous extends Methods {
     Servo one;
     Servo two;
     private int casenumber = 0;
-    //Gyro myGyro = new Gyro();
+    //Methods myGyro = new Methods();
 
 
     @Override
@@ -40,7 +38,7 @@ public class Autonomous extends Gyro {
 
     @Override
     public void loop() {
-        telemetry.addData("Gyro Value", gyroSensor.getHeading());
+        telemetry.addData("Methods Value", gyroSensor.getHeading());
         telemetry.addData("Yo", casenumber);
 
 //        myGyro.moveCentimetersTyre(200, 9.75,.3);
@@ -56,18 +54,12 @@ public class Autonomous extends Gyro {
                 casenumber++;
                 break;
             case 2:
-                gyroTurn(90, 0.075, 3);
+           //     gyroTurn(90, 0.075, 3);
                 if(gyroSensor.getHeading()>=90-3&&gyroSensor.getHeading()<90+3) {
                     casenumber++;
                 }
                 break;
-            case 1:
-                moveCentimetresTyre(100, 0.3);
-                double revolutions =100/(diameter*Math.PI);
-                if(rightMotor.getCurrentPosition()==revolutions*1072 && leftMotor.getCurrentPosition()==(revolutions*1072)) {
-                    casenumber++;
-            }
-                break;
+
             default:
                 break;
 
@@ -85,6 +77,6 @@ public class Autonomous extends Gyro {
     }
     public void utonomusYo(){
 
-        gyroTurn(90, 0.075, 3);
+       // gyroTurn(90, 0.075, 3);
     }
 }
