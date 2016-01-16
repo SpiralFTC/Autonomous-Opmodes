@@ -146,13 +146,13 @@ public class BlueFarSideAutonomous extends Methods {
                 break;
 
             case 9:
-
+                resetStartTime();
                 // move till wall
                 setDrivePower(0.4, 0.4);
 
                 count = calculateEncoderCountFromDistanceRefined(22);
 
-                if (haveEncodersReached(count, count)) {
+                if (haveEncodersReached(count, count)||getRuntime()>=3000.0f) {
                     setDrivePower(0.0f, 0.0f);
                     resetEncoders();
                     state++;

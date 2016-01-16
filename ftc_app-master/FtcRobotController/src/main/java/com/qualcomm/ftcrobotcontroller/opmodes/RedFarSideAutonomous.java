@@ -142,7 +142,7 @@ public class RedFarSideAutonomous extends Methods {
                     state++;
                 }
 
-                break;
+                break;  
 
             case 9:
 
@@ -151,7 +151,7 @@ public class RedFarSideAutonomous extends Methods {
 
                 count = calculateEncoderCountFromDistanceRefined(22);
 
-                if (haveEncodersReached(count, count)) {
+                if (haveEncodersReached(count, count)||getRuntime()>=3000.0f) {
                     setDrivePower(0.0f, 0.0f);
                     resetEncoders();
                     state++;
