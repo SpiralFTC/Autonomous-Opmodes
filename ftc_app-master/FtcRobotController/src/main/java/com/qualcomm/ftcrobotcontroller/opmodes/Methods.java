@@ -1,16 +1,11 @@
 package com.qualcomm.ftcrobotcontroller.opmodes;
 
-import com.qualcomm.robotcore.eventloop.opmode.OpMode;
-import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorController;
-import com.qualcomm.robotcore.hardware.GyroSensor;
-import com.qualcomm.robotcore.util.Range;
 
 
-public abstract class Methods extends OpMode {
-    public static DcMotor leftMotor;
-    public static DcMotor rightMotor;
-    public static GyroSensor gyroSensor;
+public abstract class Methods extends Constants {
+
+
     double diameter = 9.75;
     double oneRevolutiontreadLength = 17.78;
 
@@ -67,7 +62,7 @@ public abstract class Methods extends OpMode {
         //In this method, we calculate how many revolutions the encoders should check for.
         double circumference = oneRevolutiontreadLength;
         //This calculates the circumference.
-        double legitDistance = distance;
+        double legitDistance = distance - 45.72;
         //This takes in the wheel base for account
         double revolutions = legitDistance / circumference;
         //We need to take distance and convert it into centimeters. This line specifies that.

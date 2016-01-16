@@ -49,16 +49,17 @@ public class FtcOpModeRegister implements OpModeRegister {
      * If two or more op modes are registered with the same name, the app will display an error.
      */
 
-//    manager.register("NullOp", NullOp.class);
-//
-//    manager.register("MatrixK9TeleOp", MatrixK9TeleOp.class);
-//    manager.register("K9TeleOp", Gyro_One.class);
-//    manager.register ("PushBotAuto", PushBotAuto.class);
-//    manager.register("TestAuto",TestAuto.class);
+    manager.register("NullOp", NullOp.class);
+
+    manager.register("MatrixK9TeleOp", MatrixK9TeleOp.class);
+    manager.register("K9TeleOp", Gyro_One.class);
+    manager.register ("PushBotAuto", PushBotAuto.class);
+    manager.register("TestAuto",TestAuto.class);
     manager.register("BeBlue",BeaconBlue.class);
     manager.register("BeRed",BeaconRed.class);
     manager.register("YamaBlue",MountianBlue.class);
-
+    manager.register("YamaRed",MountainnRed.class);
+    manager.register("BeBlueReverse", BeaconBlueReverse.class);
     //manager.register ("Beacon", Autonomous.class);
 
     /*
@@ -91,10 +92,11 @@ public class FtcOpModeRegister implements OpModeRegister {
     //manager.register("PushBotIrSeek", PushBotIrSeek.java);
     //manager.register("PushBotSquare", PushBotSquare.java);
 
+    manager.register("reverse", Backwards.class);
     manager.register("Tankie", TankDrive.class);
    // manager.register("Light Sensor Test", LightTest.class);
-    manager.register("Back ",Autonomous.class);
-   manager.register("BlueFarSideAuto(Both)",BlueFarSideAutonomous.class);
+    manager.register("Auto ",Autonomous.class);
+    manager.register("BlueFarSide",BlueFarSideAutonomous.class  );
 
 
   }

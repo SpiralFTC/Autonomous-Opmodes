@@ -9,7 +9,7 @@ import com.qualcomm.robotcore.hardware.Servo;
  *
  * Autonomous program - use distances to get to beacon
  */
-public class BeaconBlue extends Methods {
+public class BeaconBlueReverse extends Methods {
 
     Servo servoOne;
     Servo servoTwo;
@@ -69,7 +69,7 @@ public class BeaconBlue extends Methods {
 
                 double count = calculateEncoderCountFromDistance(109);
 
-                setDrivePower(0.9, 0.3);
+                setDrivePower(0.3, 0.3);
 
                 //
                 // Have the motor shafts turned the required amount?
@@ -163,15 +163,34 @@ public class BeaconBlue extends Methods {
                 }
                 break;
             case 11:
-                //turn 225 degrees. Robot is parallel to mountain.
+               resetEncoders();
+                state++;
+                break;
+            case 12:
+                if(haveDriverEncodersReset()){
+                    state++;
+                }
+                break;
+            case 13:
+                useEncoders();
+                setDrivePower(-.3, -.3);
+                count = calculateEncoderCountFromDistance(40);
+                if(haveEncodersReached(count,count)){
+                    setDrivePower(0.0f,0.0f);
+                    resetEncoders();
+                    state++;
+                }
+                break;
+            case 14:
+                //turn 120 degrees. Robot is facing to mountain.
                 setDrivePowerNoEnc(-0.08f, +0.08f);
-                if (hasGyroReachedValue(210, MARGIN)) {
+                if (hasGyroReachedValue(120, MARGIN)) {
                     setDrivePower(0.0f, 0.0f);
                     state++;
                 }
                 break;
-            case 12:
-                //Move 80 cm. Robot is in line with the center of the mountain.
+            case 15:
+                //Move forward to the mountain.
                 count = calculateEncoderCountFromDistance(72);
                 setDrivePower(0.1,0.1);
                 if(haveEncodersReached(count,count)){
@@ -180,18 +199,8 @@ public class BeaconBlue extends Methods {
                     state++;
                 }
                 break;
-            case 13:
+            case 16:
                 if(haveDriverEncodersReset()){
-                    state++;
-                }
-                break;
-
-            case 14:
-                //Turn to face the mountain.
-
-                setDrivePowerNoEnc(+0.08f, -0.08f);
-                if (hasGyroReachedValue(120, MARGIN)) {
-                    setDrivePower(0.0f, 0.0f);
                     state++;
                 }
                 break;

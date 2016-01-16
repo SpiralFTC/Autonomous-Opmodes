@@ -1,8 +1,10 @@
 package com.qualcomm.ftcrobotcontroller.opmodes;
 
-import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorController;
-import com.qualcomm.robotcore.hardware.Servo;
+
+
+        import com.qualcomm.robotcore.hardware.DcMotor;
+        import com.qualcomm.robotcore.hardware.DcMotorController;
+        import com.qualcomm.robotcore.hardware.Servo;
 
 /**
  * Created by Choo Choo on 12/30/2015.
@@ -64,7 +66,7 @@ public class BlueFarSideAutonomous extends Methods {
 
                 double count = calculateEncoderCountFromDistanceRefined(76);
 
-                setDrivePower(.5, .5);
+                setDrivePower(.3, .3);
                 //
                 // Have the motor shafts turned the required amount?
                 //
@@ -86,22 +88,20 @@ public class BlueFarSideAutonomous extends Methods {
 
             case 3:
                 if (haveDriverEncodersReset()) {
-                    state+= 41;
+                    state++;
                 }
 
 
-              break;
-//            case 4: // move 3 squares diagonally
-//                // turn 45 degrees clockwise
-//                setDrivePowerNoEnc(0.6f, -0.6f);
-//                if (hasGyroReachedValue(50, MARGIN)) {
-//                    setDrivePower(0.0f, 0.0f);
-//                    state+= 3;
-//                }
-//
-//                break;
+                break;
+            case 4: // move 3 squares diagonally
+                // turn 45 degrees clockwise
+                setDrivePowerNoEnc(0.1f, -0.1);
+                if (hasGyroReachedValue(50, MARGIN)) {
+                    setDrivePower(0.0f, 0.0f);
+                    state+= 3;
+                }
 
-
+                break;
 //            case 5:
 //                resetEncoders();
 //                state++;
@@ -116,7 +116,7 @@ public class BlueFarSideAutonomous extends Methods {
                 useEncoders();
 
 
-                count = calculateEncoderCountFromDistanceRefined(261);
+                count = calculateEncoderCountFromDistanceRefined(26);
                 setDrivePower(0.3, 0.3);
 
                 if (haveEncodersReached(count, count)) {
@@ -126,7 +126,12 @@ public class BlueFarSideAutonomous extends Methods {
                 }
 
                 break;
+            case 8:
+                resetEncoders();
+                state ++;
 
+
+                break;
             case 9:
 
                 if (haveDriverEncodersReset()) {
@@ -137,7 +142,7 @@ public class BlueFarSideAutonomous extends Methods {
                 useEncoders();
 
                 setDrivePower(-0.3, -0.3);
-                count = calculateEncoderCountFromDistanceRefined(31);
+                count = calculateEncoderCountFromDistanceRefined(100);
 
                 if (haveEncodersReached(count, count)) {
                     setDrivePower(0.0f, 0.0f);
@@ -386,3 +391,4 @@ public class BlueFarSideAutonomous extends Methods {
 
 
 }
+
