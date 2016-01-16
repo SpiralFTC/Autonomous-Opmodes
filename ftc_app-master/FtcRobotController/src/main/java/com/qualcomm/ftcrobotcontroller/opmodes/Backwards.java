@@ -59,6 +59,7 @@ public class Backwards extends Methods {
                 state++;
                 break;
             case 1:
+
                 if (haveDriverEncodersReset()) {
                     state++;
                     //reseting the encoders takes time, so once it is completed, we go to the next case.
