@@ -9,13 +9,24 @@ import com.qualcomm.robotcore.hardware.Servo;
 public class  OpModeMethods extends OpMode{
     DcMotor right;
     DcMotor left;
-    Servo RightServo;
-    Servo LeftServo;
-    double ServoPosition;
-    double armPosition;
+    DcMotor armMotor;
+
+    Servo ClimberServo;
+    Servo ZiplineTriggerServo;
+    Servo armLatchServo;
+
+    GyroSensor gyro;
+
+    double ServoPosition = 0;
+    double armPosition = 0;
+    double latchPosition = 1;
+
     double servoDelta = 0.1;
     double armDelta = 0.03;
-    GyroSensor gyro;
+    double latchDelta = 0.05;
+
+
+
 
 
 
@@ -27,14 +38,16 @@ public class  OpModeMethods extends OpMode{
         left = hardwareMap.dcMotor.get("left");
         left.setDirection(DcMotor.Direction.REVERSE);
 
+        armMotor = hardwareMap.dcMotor.get("armMotor");
 
-        LeftServo = hardwareMap.servo.get("leftS");
-        RightServo = hardwareMap.servo.get("arm");
+
+        ZiplineTriggerServo = hardwareMap.servo.get("leftS");
+        ClimberServo = hardwareMap.servo.get("arm");
+        armLatchServo = hardwareMap.servo.get("armLatch");
 
         gyro = hardwareMap.gyroSensor.get("gyro");
 
-        RightServo.setPosition(ServoPosition);
-        LeftServo.setPosition(ServoPosition);
+
     }
 
     @Override

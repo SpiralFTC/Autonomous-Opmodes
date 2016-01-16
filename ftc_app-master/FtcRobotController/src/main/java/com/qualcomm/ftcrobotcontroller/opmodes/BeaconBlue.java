@@ -69,7 +69,7 @@ public class BeaconBlue extends Methods {
 
                 double count = calculateEncoderCountFromDistance(109);
 
-                setDrivePower(0.3, 0.3);
+                setDrivePower(0.9, 0.3);
 
                 //
                 // Have the motor shafts turned the required amount?
