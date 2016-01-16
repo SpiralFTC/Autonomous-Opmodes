@@ -59,13 +59,7 @@ public class Autonomous extends Methods {
                     casenumber++;
                 }
                 break;
-            case 1:
-                moveCentimetresTyre(100, 0.3);
-                double revolutions =100/(diameter*Math.PI);
-                if(rightMotor.getCurrentPosition()==revolutions*1072 && leftMotor.getCurrentPosition()==(revolutions*1072)) {
-                    casenumber++;
-            }
-                break;
+
             default:
                 break;
 
