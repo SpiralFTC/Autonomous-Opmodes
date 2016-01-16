@@ -91,20 +91,20 @@ public class Autonomous extends Methods {
 
 
                 break;
-            case 5:
-                useEncoders();
-                setDrivePower(.3,0.3);
-                count = calculateEncoderCountFromDistanceRefined(90);
-                if(haveEncodersReached(count,count)){
-                    setDrivePower(0.0f,0.0f);
-                    state++;
-                }
-                break;
+//            case 5:
+//                useEncoders();
+//                setDrivePower(.5,0.5);
+//                count = calculateEncoderCountFromDistanceRefined(261);
+//                if(haveEncodersReached(count,count)){
+//                    setDrivePower(0.0f,0.0f);
+//                    state++;
+//                }
+//                break;
 
 
             case 6:
                 useEncoders();
-                setDrivePower(-.3,-0.3);
+                setDrivePower(-.5,-0.5);
                 count = calculateEncoderCountFromDistanceRefined(90);
                 if(haveEncodersReached(count,count)){
                     setDrivePower(0.0f,0.0f);

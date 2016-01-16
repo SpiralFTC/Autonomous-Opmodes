@@ -86,20 +86,22 @@ public class BlueFarSideAutonomous extends Methods {
 
             case 3:
                 if (haveDriverEncodersReset()) {
-                    state++;
+                    state+= 41;
                 }
 
 
-                break;
-            case 4: // move 3 squares diagonally
-                // turn 45 degrees clockwise
-                setDrivePowerNoEnc(0.6f, -0.6f);
-                if (hasGyroReachedValue(50, MARGIN)) {
-                    setDrivePower(0.0f, 0.0f);
-                    state+= 3;
-                }
+              break;
+//            case 4: // move 3 squares diagonally
+//                // turn 45 degrees clockwise
+//                setDrivePowerNoEnc(0.6f, -0.6f);
+//                if (hasGyroReachedValue(50, MARGIN)) {
+//                    setDrivePower(0.0f, 0.0f);
+//                    state+= 3;
+//                }
+//
+//                break;
 
-                break;
+
 //            case 5:
 //                resetEncoders();
 //                state++;
@@ -115,7 +117,7 @@ public class BlueFarSideAutonomous extends Methods {
 
 
                 count = calculateEncoderCountFromDistanceRefined(261);
-                setDrivePower(0.5, 0.5);
+                setDrivePower(0.3, 0.3);
 
                 if (haveEncodersReached(count, count)) {
                     setDrivePower(0.0f, 0.0f);
@@ -124,12 +126,7 @@ public class BlueFarSideAutonomous extends Methods {
                 }
 
                 break;
-            case 8:
-                resetEncoders();
-                state ++;
 
-
-        break;
             case 9:
 
                 if (haveDriverEncodersReset()) {
@@ -139,7 +136,7 @@ public class BlueFarSideAutonomous extends Methods {
             case 10:
                 useEncoders();
 
-                setDrivePower(-0.5, -0.5);
+                setDrivePower(-0.3, -0.3);
                 count = calculateEncoderCountFromDistanceRefined(31);
 
                 if (haveEncodersReached(count, count)) {
