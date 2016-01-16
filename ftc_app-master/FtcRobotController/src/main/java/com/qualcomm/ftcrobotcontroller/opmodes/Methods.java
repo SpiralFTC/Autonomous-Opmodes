@@ -62,7 +62,7 @@ public abstract class Methods extends Constants {
         //In this method, we calculate how many revolutions the encoders should check for.
         double circumference = oneRevolutiontreadLength;
         //This calculates the circumference.
-        double legitDistance = distance - 45.72;
+        double legitDistance = distance ;
         //This takes in the wheel base for account
         double revolutions = legitDistance / circumference;
         //We need to take distance and convert it into centimeters. This line specifies that.

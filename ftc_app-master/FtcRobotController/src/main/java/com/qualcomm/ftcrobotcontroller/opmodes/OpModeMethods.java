@@ -19,7 +19,7 @@ public class  OpModeMethods extends OpMode{
 
     double ServoPosition = 0;
     double armPosition = 0;
-    double latchPosition = 0;
+    double latchPosition = 1;
 
     double servoDelta = 0.1;
     double armDelta = 0.03;

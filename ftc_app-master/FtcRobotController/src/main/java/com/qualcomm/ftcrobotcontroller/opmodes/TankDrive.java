@@ -39,20 +39,21 @@ public class TankDrive extends OpModeMethods {
         armMotor.setPower(sweeperPower);
 
         if (gamepad2.y) {
-            ServoPosition += servoDelta;
+            armPosition += armDelta;
 
         }
         if (gamepad2.a) {
-            ServoPosition -= servoDelta;
+
+            armPosition -= armDelta;
         }
 
         if (gamepad2.x) {
 
-            armPosition += armDelta;
+            ServoPosition += servoDelta;
         }
 
         if (gamepad2.b) {
-            armPosition -= armDelta;
+            ServoPosition -= servoDelta;
         }
 
         if (gamepad2.dpad_up) {
@@ -65,11 +66,11 @@ public class TankDrive extends OpModeMethods {
 
 
         armPosition = Range.clip(armPosition, 0.01, 0.99);
-        ServoPosition = Range.clip(ServoPosition, 0.01, 0.99);
+        ServoPosition = Range.clip(ServoPosition, 0.21, 0.99);
         latchPosition = Range.clip(latchPosition, 0.01, 0.99);
 
-        ClimberServo.setPosition(armPosition);
-        ZiplineTriggerServo.setPosition(ServoPosition);
+        ClimberServo.setPosition(ServoPosition);
+        ZiplineTriggerServo.setPosition(armPosition);
         armLatchServo.setPosition(latchPosition);
 
     }
