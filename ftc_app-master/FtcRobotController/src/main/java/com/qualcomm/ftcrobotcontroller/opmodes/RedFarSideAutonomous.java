@@ -142,8 +142,7 @@ public class RedFarSideAutonomous extends Methods {
                     state++;
                 }
 
-                break;  
-
+                break;
             case 9:
 
                 // move till wall

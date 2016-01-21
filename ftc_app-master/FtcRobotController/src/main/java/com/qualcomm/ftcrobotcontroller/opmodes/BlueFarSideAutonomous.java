@@ -24,14 +24,14 @@ public class BlueFarSideAutonomous extends Methods {
         leftMotor = hardwareMap.dcMotor.get("left");
         rightMotor = hardwareMap.dcMotor.get("right");
 
-        armLatchServo.setPosition(1);
+
 
     }
 
     @Override
     public void start() {
         super.start();
-
+        armLatchServo.setPosition(1);
         leftMotor.setDirection(DcMotor.Direction.REVERSE);
         leftMotor.setMode(DcMotorController.RunMode.RESET_ENCODERS);
         rightMotor.setMode(DcMotorController.RunMode.RESET_ENCODERS);
