@@ -168,7 +168,7 @@ public class BlueFarSideAutonomous extends Methods {
             case 11:
                 //lift arm to drop climbers in beacon
 
-                // climberServo.setPosition(climberArmPosition);
+                // ZiplineTriggerServoRight.setPosition(climberArmPosition);
                 ziplineServo.setPosition(climberArmPosition);
                 if (ziplineServo.getPosition() == climberArmPosition) {
                     climberArmPosition = 1;
@@ -181,7 +181,7 @@ public class BlueFarSideAutonomous extends Methods {
             case 12:
                 //return arm to original position
 
-               // climberServo.setPosition(climberArmPosition);
+               // ZiplineTriggerServoRight.setPosition(climberArmPosition);
                 ziplineServo.setPosition(climberArmPosition);
                 if (ziplineServo.getPosition() == climberArmPosition) {
                     climberArmPosition = 0;

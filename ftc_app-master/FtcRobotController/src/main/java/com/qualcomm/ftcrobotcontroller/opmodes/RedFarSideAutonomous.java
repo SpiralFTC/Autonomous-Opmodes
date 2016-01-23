@@ -167,7 +167,7 @@ public class RedFarSideAutonomous extends Methods {
             case 11:
                 //lift arm to drop climbers in beacon
 
-                //  climberServo.setPosition(climberArmPosition);
+                //  ZiplineTriggerServoRight.setPosition(climberArmPosition);
                 ziplineServo.setPosition(climberArmPosition);
                 if (ziplineServo.getPosition() == climberArmPosition) {
                     climberArmPosition = 1;
