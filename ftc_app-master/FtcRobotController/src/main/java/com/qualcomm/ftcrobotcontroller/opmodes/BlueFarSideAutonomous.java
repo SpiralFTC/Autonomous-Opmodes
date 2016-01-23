@@ -24,14 +24,14 @@ public class BlueFarSideAutonomous extends Methods {
         leftMotor = hardwareMap.dcMotor.get("left");
         rightMotor = hardwareMap.dcMotor.get("right");
 
-        armLatchServo.setPosition(1);
+
 
     }
 
     @Override
     public void start() {
         super.start();
-
+        armLatchServo.setPosition(1);
         leftMotor.setDirection(DcMotor.Direction.REVERSE);
         leftMotor.setMode(DcMotorController.RunMode.RESET_ENCODERS);
         rightMotor.setMode(DcMotorController.RunMode.RESET_ENCODERS);
@@ -146,13 +146,13 @@ public class BlueFarSideAutonomous extends Methods {
                 break;
 
             case 9:
-
+                resetStartTime();
                 // move till wall
                 setDrivePower(0.4, 0.4);
 
                 count = calculateEncoderCountFromDistanceRefined(22);
 
-                if (haveEncodersReached(count, count)) {
+                if (haveEncodersReached(count, count)||getRuntime()>=3000.0f) {
                     setDrivePower(0.0f, 0.0f);
                     resetEncoders();
                     state++;

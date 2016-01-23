@@ -143,7 +143,6 @@ public class RedFarSideAutonomous extends Methods {
                 }
 
                 break;
-
             case 9:
 
                 // move till wall
@@ -151,7 +150,7 @@ public class RedFarSideAutonomous extends Methods {
 
                 count = calculateEncoderCountFromDistanceRefined(22);
 
-                if (haveEncodersReached(count, count)) {
+                if (haveEncodersReached(count, count)||getRuntime()>=3000.0f) {
                     setDrivePower(0.0f, 0.0f);
                     resetEncoders();
                     state++;
