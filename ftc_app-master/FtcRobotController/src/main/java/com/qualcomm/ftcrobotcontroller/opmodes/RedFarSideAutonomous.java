@@ -3,7 +3,6 @@ package com.qualcomm.ftcrobotcontroller.opmodes;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorController;
-import com.qualcomm.robotcore.hardware.Servo;
 
 /**
  * Created by Rohith on 12/30/2015.
@@ -11,32 +10,8 @@ import com.qualcomm.robotcore.hardware.Servo;
 public class RedFarSideAutonomous extends Methods {
 
 
-    @Override
-    public void init() {
-        climberServo = hardwareMap.servo.get("arm");
-        armLatchServo = hardwareMap.servo.get("armLatch");
-        ziplineServo = hardwareMap.servo.get("leftS");
-        gyroSensor = hardwareMap.gyroSensor.get("gyro");
-        gyroSensor.calibrate();
-        if (gyroSensor.isCalibrating()) {
-            sleep(400);
-        }
-        leftMotor = hardwareMap.dcMotor.get("left");
-        rightMotor = hardwareMap.dcMotor.get("right");
-        armLatchServo.setPosition(1);
-
-    }
-
-    @Override
-    public void start() {
-        super.start();
-
-        leftMotor.setDirection(DcMotor.Direction.REVERSE);
-        leftMotor.setMode(DcMotorController.RunMode.RESET_ENCODERS);
-        rightMotor.setMode(DcMotorController.RunMode.RESET_ENCODERS);
 
 
-    }
 
     @Override
     public void loop() {
@@ -168,8 +143,8 @@ public class RedFarSideAutonomous extends Methods {
                 //lift arm to drop climbers in beacon
 
                 //  ZiplineTriggerServoRight.setPosition(climberArmPosition);
-                ziplineServo.setPosition(climberArmPosition);
-                if (ziplineServo.getPosition() == climberArmPosition) {
+                ZiplineTriggerServoRight.setPosition(climberArmPosition);
+                if (ZiplineTriggerServoRight.getPosition() == climberArmPosition) {
                     climberArmPosition = 1;
                     state++;
                 }
@@ -180,8 +155,8 @@ public class RedFarSideAutonomous extends Methods {
             case 12:
                 //return arm to original position
 
-                ziplineServo.setPosition(climberArmPosition);
-                if (ziplineServo.getPosition() == climberArmPosition) {
+                ZiplineTriggerServoRight.setPosition(climberArmPosition);
+                if (ZiplineTriggerServoRight.getPosition() == climberArmPosition) {
                     climberArmPosition = 0;
                     state+= 2;
                 }
