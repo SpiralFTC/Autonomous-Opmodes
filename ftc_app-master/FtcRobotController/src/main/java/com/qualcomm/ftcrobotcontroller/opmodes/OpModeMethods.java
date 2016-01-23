@@ -11,17 +11,20 @@ public class  OpModeMethods extends OpMode{
     DcMotor left;
     DcMotor armMotor;
 
-    Servo ClimberServo;
-    Servo ZiplineTriggerServo;
+    Servo triggerServoLeft;
+    Servo climberServo;
     Servo armLatchServo;
+    Servo ZiplineTriggerServoRight;
 
     GyroSensor gyro;
 
-    double ServoPosition = 0;
+    double servoPositionRight = 1;
     double armPosition = 0;
     double latchPosition = 1;
+    double servoPositionLeft = 0;
 
-    double servoDelta = 0.1;
+    double servoRightDelta = 0.1;
+    double servoLeftDelta = 0.1;
     double armDelta = 0.03;
     double latchDelta = 0.05;
 
@@ -41,8 +44,11 @@ public class  OpModeMethods extends OpMode{
         armMotor = hardwareMap.dcMotor.get("armMotor");
 
 
-        ZiplineTriggerServo = hardwareMap.servo.get("leftS");
-        ClimberServo = hardwareMap.servo.get("arm");
+        climberServo = hardwareMap.servo.get("rightServo");
+        ZiplineTriggerServoRight = hardwareMap.servo.get("leftServo");
+
+        triggerServoLeft = hardwareMap.servo.get("arm");
+
         armLatchServo = hardwareMap.servo.get("armLatch");
 
         gyro = hardwareMap.gyroSensor.get("gyro");

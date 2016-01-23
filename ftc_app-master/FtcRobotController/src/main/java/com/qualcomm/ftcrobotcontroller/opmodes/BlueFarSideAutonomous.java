@@ -3,7 +3,6 @@ package com.qualcomm.ftcrobotcontroller.opmodes;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorController;
-import com.qualcomm.robotcore.hardware.Servo;
 
 /**
  * Created by Choo Choo on 12/30/2015.
@@ -13,9 +12,9 @@ public class BlueFarSideAutonomous extends Methods {
 
     @Override
     public void init() {
-        climberServo = hardwareMap.servo.get("arm");
+        triggerServoLeft = hardwareMap.servo.get("arm");
         armLatchServo = hardwareMap.servo.get("armLatch");
-        ziplineServo = hardwareMap.servo.get("leftS");
+        ZiplineTriggerServoRight = hardwareMap.servo.get("leftS");
         gyroSensor = hardwareMap.gyroSensor.get("gyro");
         gyroSensor.calibrate();
         if (gyroSensor.isCalibrating()) {
@@ -168,9 +167,9 @@ public class BlueFarSideAutonomous extends Methods {
             case 11:
                 //lift arm to drop climbers in beacon
 
-                // climberServo.setPosition(climberArmPosition);
-                ziplineServo.setPosition(climberArmPosition);
-                if (ziplineServo.getPosition() == climberArmPosition) {
+                // ZiplineTriggerServoRight.setPosition(climberArmPosition);
+                ZiplineTriggerServoRight.setPosition(climberArmPosition);
+                if (ZiplineTriggerServoRight.getPosition() == climberArmPosition) {
                     climberArmPosition = 1;
                     state++;
                 }
@@ -181,9 +180,9 @@ public class BlueFarSideAutonomous extends Methods {
             case 12:
                 //return arm to original position
 
-               // climberServo.setPosition(climberArmPosition);
-                ziplineServo.setPosition(climberArmPosition);
-                if (ziplineServo.getPosition() == climberArmPosition) {
+               // ZiplineTriggerServoRight.setPosition(climberArmPosition);
+                ZiplineTriggerServoRight.setPosition(climberArmPosition);
+                if (ZiplineTriggerServoRight.getPosition() == climberArmPosition) {
                     climberArmPosition = 0;
                     state+= 2;
                 }

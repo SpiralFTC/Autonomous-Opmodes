@@ -19,22 +19,7 @@ public class BeaconBlueOnly extends Methods {
     static int MARGIN = 2;
     private int turnValue = 0;
 
-    @Override
-    public void init() {
-        servoOne = hardwareMap.servo.get("arm");
-        servoTwo = hardwareMap.servo.get("leftS");
-        gyroSensor = hardwareMap.gyroSensor.get("gyro");
-        gyroSensor.calibrate();
-        if (gyroSensor.isCalibrating()) {
-            sleep(400);
-        }//gives the gyro time to calibrate.
-        leftMotor = hardwareMap.dcMotor.get("left");
-        rightMotor = hardwareMap.dcMotor.get("right");
-        telemetry.addData("Yo init", state);
-        //In our init method, we hardware map our motors and print out our state value.
-        //State is a variable which keeps track of the case we are on in our loop method.
-        //We also calibrate the gyrosensor.
-    }
+
 
     @Override
     public void start() {
@@ -67,9 +52,9 @@ public class BeaconBlueOnly extends Methods {
             case 1: // move 2 squares
                 useEncoders();
 
-                double count = calculateEncoderCountFromDistance(109);
+                double count = calculateEncoderCountFromDistanceRefined(109);
 
-                setDrivePower(0.3, 0.3);
+                setDrivePower(0.6, 0.6);
 
                 //
                 // Have the motor shafts turned the required amount?
@@ -111,8 +96,8 @@ public class BeaconBlueOnly extends Methods {
                 break;
             case 4: // move 1 1/2 squares
                 useEncoders();
-                count = calculateEncoderCountFromDistance(116);
-                setDrivePower(0.3, 0.3);
+                count = calculateEncoderCountFromDistanceRefined(116);
+                setDrivePower(0.6, 0.6);
                 if (haveEncodersReached(count, count)) {
                     setDrivePower(0.0f, 0.0f);
                     resetEncoders();

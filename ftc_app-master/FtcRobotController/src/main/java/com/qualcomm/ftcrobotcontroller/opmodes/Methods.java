@@ -1,13 +1,42 @@
 package com.qualcomm.ftcrobotcontroller.opmodes;
 
+import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorController;
 
 
 public abstract class Methods extends Constants {
 
-
     double diameter = 9.75;
     double oneRevolutiontreadLength = 17.78;
+
+    @Override
+    public void init() {
+        triggerServoLeft = hardwareMap.servo.get("arm");
+        armLatchServo = hardwareMap.servo.get("armLatch");
+        ZiplineTriggerServoRight = hardwareMap.servo.get("leftServo");
+        climberServo = hardwareMap.servo.get("rightServo");
+
+        gyroSensor = hardwareMap.gyroSensor.get("gyro");
+        gyroSensor.calibrate();
+        if (gyroSensor.isCalibrating()) {
+            sleep(400);
+        }
+        leftMotor = hardwareMap.dcMotor.get("left");
+        rightMotor = hardwareMap.dcMotor.get("right");
+        armLatchServo.setPosition(1);
+
+    }
+
+    @Override
+    public void start() {
+        super.start();
+
+        leftMotor.setDirection(DcMotor.Direction.REVERSE);
+        leftMotor.setMode(DcMotorController.RunMode.RESET_ENCODERS);
+        rightMotor.setMode(DcMotorController.RunMode.RESET_ENCODERS);
+
+
+    }
 
     /**
      * Indicate whether the drive motors' encoders have reached a value.
