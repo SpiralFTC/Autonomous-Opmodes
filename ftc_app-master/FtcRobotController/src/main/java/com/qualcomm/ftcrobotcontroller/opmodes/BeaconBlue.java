@@ -125,7 +125,7 @@ public class BeaconBlue extends Gyro{
                 }
                 break;
             case 6:
-                // turn another 45 degrees
+                // turn another 90 degrees
                 setDrivePowerNoEnc(-0.08f, +0.08f);
                 if (hasGyroReachedValue(90, MARGIN)) {
                     setDrivePower(0.0f, 0.0f);
@@ -180,6 +180,11 @@ public class BeaconBlue extends Gyro{
                 }
                 break;
             case 13:
+                if(haveDriverEncodersReset()){
+                    state++;
+                }
+                break;
+            case 14:
                 //Turn to face the mountain.
 
                 setDrivePowerNoEnc(+0.08f, -0.08f);
@@ -187,6 +192,11 @@ public class BeaconBlue extends Gyro{
                     setDrivePower(0.0f, 0.0f);
                     state++;
                 }
+                break;
+            case 15:
+                //climb the mountain
+                setDrivePower(0.5,0.5);
+
                 break;
 
             default:

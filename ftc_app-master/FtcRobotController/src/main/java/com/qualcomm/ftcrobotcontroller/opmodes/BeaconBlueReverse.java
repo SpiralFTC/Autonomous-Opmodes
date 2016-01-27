@@ -5,21 +5,36 @@ import com.qualcomm.robotcore.hardware.DcMotorController;
 import com.qualcomm.robotcore.hardware.Servo;
 
 /**
- * Created by RohithSudhakar on 12/29/2015.
+ * Created by Rohith_Sudhakar on 12/29/2015.
  *
  * Autonomous program - use distances to get to beacon
  */
-public class BeaconBlueOnly extends Methods {
+public class BeaconBlueReverse extends Methods {
 
     Servo servoOne;
     Servo servoTwo;
 
     private int state = 0;
     private int x = 0;
-    static int MARGIN = 2;
+    //static int MARGIN = 2;
     private int turnValue = 0;
 
-
+    @Override
+    public void init() {
+        servoOne = hardwareMap.servo.get("arm");
+        servoTwo = hardwareMap.servo.get("leftS");
+        gyroSensor = hardwareMap.gyroSensor.get("gyro");
+        gyroSensor.calibrate();
+        if (gyroSensor.isCalibrating()) {
+            sleep(400);
+        }//gives the gyro time to calibrate.
+        leftMotor = hardwareMap.dcMotor.get("left");
+        rightMotor = hardwareMap.dcMotor.get("right");
+        telemetry.addData("Yo init", state);
+        //In our init method, we hardware map our motors and print out our state value.
+        //State is a variable which keeps track of the case we are on in our loop method.
+        //We also calibrate the gyrosensor.
+    }
 
     @Override
     public void start() {
@@ -52,9 +67,9 @@ public class BeaconBlueOnly extends Methods {
             case 1: // move 2 squares
                 useEncoders();
 
-                double count = calculateEncoderCountFromDistanceRefined(100);
+                double count = calculateEncoderCountFromDistance(109);
 
-                setDrivePower(0.6, 0.6);
+                setDrivePower(0.3, 0.3);
 
                 //
                 // Have the motor shafts turned the required amount?
@@ -83,7 +98,7 @@ public class BeaconBlueOnly extends Methods {
                 break;
             case 3:
                 // turn 45 degrees
-                setDrivePowerNoEnc(+0.7f, -0.7f);
+                setDrivePowerNoEnc(-0.08f, +0.08f);
                 //set one motor to go one way, and the other motor to go the other way.
                 //This allows the robot to do a dual wheel turn
                 //For turning, we don't need the encoders,
@@ -96,8 +111,8 @@ public class BeaconBlueOnly extends Methods {
                 break;
             case 4: // move 1 1/2 squares
                 useEncoders();
-                count = calculateEncoderCountFromDistanceRefined(100);
-                setDrivePower(0.6, 0.6);
+                count = calculateEncoderCountFromDistance(116);
+                setDrivePower(0.3, 0.3);
                 if (haveEncodersReached(count, count)) {
                     setDrivePower(0.0f, 0.0f);
                     resetEncoders();
@@ -111,64 +126,82 @@ public class BeaconBlueOnly extends Methods {
                 break;
             case 6:
                 // turn another 45 degrees
-                useEncoders();
-
-                setDrivePower(-0.6, -0.6);
-                count = calculateEncoderCountFromDistanceRefined(35);
-
-                if (haveEncodersReached(count, count)) {
+                setDrivePowerNoEnc(-0.08f, +0.08f);
+                if (hasGyroReachedValue(90, MARGIN)) {
                     setDrivePower(0.0f, 0.0f);
-                    resetEncoders();
                     state++;
                 }
-
                 break;
 
             case 7: // move till the wall.
-                // turn 45 degrees
-                setDrivePowerNoEnc(+0.7f, -0.7f);
-                //set one motor to go one way, and the other motor to go the other way.
-                //This allows the robot to do a dual wheel turn
-                //For turning, we don't need the encoders,
-                if (hasGyroReachedValue(90, MARGIN)) {
-                    //if we have reached the correct value, we set the motor power to 0, and move up a case,
-                    setDrivePower(0.0f, 0.0f);
-                    state++;
-                }
-
-                break;
-            case 8:
-                // turn another 45 degrees
-                useEncoders();
-
-                setDrivePower(0.6, 0.6);
-                count = calculateEncoderCountFromDistanceRefined(20);
-
-                if (haveEncodersReached(count, count)) {
-                    setDrivePower(0.0f, 0.0f);
+                count = calculateEncoderCountFromDistance(20);
+                setDrivePower(0.1,0.1);
+                if(haveEncodersReached(count,count)){
+                    setDrivePower(0.0f,0.0f);
                     resetEncoders();
                     state++;
                 }
-
                 break;
-
-            case 9:
+            case 8:
                 if(haveDriverEncodersReset()){
                     state++;
                 }
-            case 10://lower the arm. This drops the climbers
+                break;
+            case 9://lower the arm. This drops the climbers
                 servoOne.setPosition(1);
                 if(servoOne.getPosition()==1){
                     state++;
 
                 }
                 break;
-            case 11:
+            case 10:
                 //raise the arm.
                 servoOne.setPosition(0);
                 if(servoOne.getPosition()==0){
                     state++;
 
+                }
+                break;
+            case 11:
+                resetEncoders();
+                state++;
+                break;
+            case 12:
+                if(haveDriverEncodersReset()){
+                    state++;
+                }
+                break;
+            case 13:
+                useEncoders();
+                setDrivePower(-.3, -.3);
+                count = calculateEncoderCountFromDistance(40);
+                if(haveEncodersReached(count,count)){
+                    setDrivePower(0.0f,0.0f);
+                    resetEncoders();
+                    state++;
+                }
+                break;
+            case 14:
+                //turn 120 degrees. Robot is facing to mountain.
+                setDrivePowerNoEnc(-0.08f, +0.08f);
+                if (hasGyroReachedValue(120, MARGIN)) {
+                    setDrivePower(0.0f, 0.0f);
+                    state++;
+                }
+                break;
+            case 15:
+                //Move forward to the mountain.
+                count = calculateEncoderCountFromDistance(72);
+                setDrivePower(0.1,0.1);
+                if(haveEncodersReached(count,count)){
+                    setDrivePower(0.0f,0.0f);
+                    resetEncoders();
+                    state++;
+                }
+                break;
+            case 16:
+                if(haveDriverEncodersReset()){
+                    state++;
                 }
                 break;
 

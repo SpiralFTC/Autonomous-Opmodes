@@ -49,63 +49,57 @@ public class FtcOpModeRegister implements OpModeRegister {
      * If two or more op modes are registered with the same name, the app will display an error.
      */
 
-    manager.register("NullOp", NullOp.class);
-
-    manager.register("MatrixK9TeleOp", MatrixK9TeleOp.class);
-    manager.register("K9TeleOp", Gyro_One.class);
-    manager.register ("PushBotAuto", PushBotAuto.class);
-    manager.register("TestAuto",TestAuto.class);
-    manager.register("MountBeBlue",BeaconBlue.class);
-    manager.register("MountBeRed",BeaconRed.class);
-    manager.register("YamaBlue",MountianBlue.class);
-    manager.register("BeOnlyBlue", BeaconBlueOnly.class);
-    manager.register("BeOnlyRed", BeaconRedOnly.class);
-
-
-
-
-    manager.register("Tankie", TankDrive.class);
-
-
-  }
-}
-
-
-
-
+//    manager.register("NullOp", NullOp.class);
 //
-// manager.register("Light Sensor Test", LightTest.class);
-//  manager.register("All Test",AllTest.class);
-
-
-//manager.register ("Beacon", Autonomous.class);
-
+//    manager.register("MatrixK9TeleOp", MatrixK9TeleOp.class);
+//    manager.register("K9TeleOp", Gyro_One.class);
+//    manager.register ("PushBotAuto", PushBotAuto.class);
+//    manager.register("TelOPTest",TelOPTest.class);
+   /* manager.register("BeBlue",BeaconBlue.class);
+    manager.register("BeRed",BeaconRed.class);
+    manager.register("YamaBlue",MountianBlue.class);
+    manager.register("YamaRed",MountainnRed.class);
+    manager.register("BeBlueReverse", BeaconBlueReverse.class);
+    //manager.register ("Beacon", Autonomous.class);
+*/
     /*
      * Uncomment any of the following lines if you want to register an op mode.
      */
 
-//manager.register("AdafruitRGBExample", AdafruitRGBExample.class);
-//manager.register("ColorSensorDriver", ColorSensorDriver.class);
+    //manager.register("AdafruitRGBExample", AdafruitRGBExample.class);
+    //manager.register("ColorSensorDriver", ColorSensorDriver.class);
 
-//manager.register("IrSeekerOp", IrSeekerOp.class);
-//manager.register("CompassCalibration", CompassCalibration.class);
-//manager.register("I2cAddressChangeExample", LinearI2cAddressChange.class);
+    //manager.register("IrSeekerOp", IrSeekerOp.class);
+    //manager.register("CompassCalibration", CompassCalibration.class);
+    //manager.register("I2cAddressChangeExample", LinearI2cAddressChange.class);
 
 
-//manager.register("NxtTeleOp", NxtTeleOp.class);
+    //manager.register("NxtTeleOp", NxtTeleOp.class);
 
-//manager.register("LinearK9TeleOp", LinearK9TeleOp.class);
-//manager.register("LinearIrExample", LinearIrExample.class);
+    //manager.register("LinearK9TeleOp", LinearK9TeleOp.class);
+    //manager.register("LinearIrExample", LinearIrExample.class);
 
-//manager.register ("PushBotManual1", PushBotManual1.class);
-//manager.register ("PushBotAutoSensors", PushBotAutoSensors.class);
-//manager.register ("PushBotIrEvent", PushBotIrEvent.class);
+    //manager.register ("PushBotManual1", PushBotManual1.class);
+    //manager.register ("PushBotAutoSensors", PushBotAutoSensors.class);
+    //manager.register ("PushBotIrEvent", PushBotIrEvent.class);
 
-//manager.register ("PushBotManualSensors", PushBotManualSensors.class);
-//manager.register ("PushBotOdsDetectEvent", PushBotOdsDetectEvent.class);
-//manager.register ("PushBotOdsFollowEvent", PushBotOdsFollowEvent.class);
-//manager.register ("PushBotTouchEvent", PushBotTouchEvent.class);
+    //manager.register ("PushBotManualSensors", PushBotManualSensors.class);
+    //manager.register ("PushBotOdsDetectEvent", PushBotOdsDetectEvent.class);
+    //manager.register ("PushBotOdsFollowEvent", PushBotOdsFollowEvent.class);
+    //manager.register ("PushBotTouchEvent", PushBotTouchEvent.class);
 
-//manager.register("PushBotDriveTouch", PushBotDriveTouch.java);
-//manager.register("PushBotIrSeek", PushBotIrSeek.java);
-//manager.register("PushBotSquare", PushBotSquare.java);
+    //manager.register("PushBotDriveTouch", PushBotDriveTouch.java);
+    //manager.register("PushBotIrSeek", PushBotIrSeek.java);
+    //manager.register("PushBotSquare", PushBotSquare.java);
+
+    manager.register("BlueNearSideAuto", BeaconBlueOnly.class);
+    manager.register("RedNearSideAuto", BeaconRedOnly.class);
+    manager.register("Tankie, ITS OP", TankDrive.class);
+    manager.register("RedFarSideAuto", RedFarSideAutonomous.class);
+    manager.register("Auto ", Autonomous.class);
+    manager.register("BlueFarSideAuto", BlueFarSideAutonomous.class);
+    manager.register("RohithAuto", BeaconBlueOnly.class);
+
+
+  }
+}
