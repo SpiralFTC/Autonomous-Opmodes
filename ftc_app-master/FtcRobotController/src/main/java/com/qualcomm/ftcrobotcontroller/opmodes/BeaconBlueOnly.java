@@ -11,14 +11,6 @@ import com.qualcomm.robotcore.hardware.Servo;
  */
 public class BeaconBlueOnly extends Methods {
 
-    Servo servoOne;
-    Servo servoTwo;
-
-    private int state = 0;
-    private int x = 0;
-    static int MARGIN = 2;
-    private int turnValue = 0;
-
 
 
     @Override
@@ -142,7 +134,7 @@ public class BeaconBlueOnly extends Methods {
                 useEncoders();
 
                 setDrivePower(0.6, 0.6);
-                count = calculateEncoderCountFromDistanceRefined(20);
+                count = calculateEncoderCountFromDistanceRefined(25);
 
                 if (haveEncodersReached(count, count)) {
                     setDrivePower(0.0f, 0.0f);
@@ -157,20 +149,19 @@ public class BeaconBlueOnly extends Methods {
                     state++;
                 }
             case 10://lower the arm. This drops the climbers
-                servoOne.setPosition(1);
-                if(servoOne.getPosition()==1){
-                    state++;
+                //lift arm to drop climbers in beacon
 
+
+                climberServo.setPosition(climberArmPosition);
+                if (climberServo.getPosition() == climberArmPosition) {
+
+                    state ++;
                 }
+
+
                 break;
             case 11:
                 //raise the arm.
-                servoOne.setPosition(0);
-                if(servoOne.getPosition()==0){
-                    state++;
-
-                }
-                break;
 
             default:
                 break;

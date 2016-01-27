@@ -11,34 +11,6 @@ public class BlueFarSideAutonomous extends Methods {
 
 
     @Override
-    public void init() {
-        triggerServoLeft = hardwareMap.servo.get("arm");
-        armLatchServo = hardwareMap.servo.get("armLatch");
-        ZiplineTriggerServoRight = hardwareMap.servo.get("leftS");
-        gyroSensor = hardwareMap.gyroSensor.get("gyro");
-        gyroSensor.calibrate();
-        if (gyroSensor.isCalibrating()) {
-            sleep(400);
-        }
-        leftMotor = hardwareMap.dcMotor.get("left");
-        rightMotor = hardwareMap.dcMotor.get("right");
-
-
-
-    }
-
-    @Override
-    public void start() {
-        super.start();
-        armLatchServo.setPosition(1);
-        leftMotor.setDirection(DcMotor.Direction.REVERSE);
-        leftMotor.setMode(DcMotorController.RunMode.RESET_ENCODERS);
-        rightMotor.setMode(DcMotorController.RunMode.RESET_ENCODERS);
-
-
-    }
-
-    @Override
     public void loop() {
         telemetry.addData("Gyro Value: ", gyroSensor.getHeading());
         telemetry.addData("State: ", state);
@@ -87,7 +59,7 @@ public class BlueFarSideAutonomous extends Methods {
             case 3: // move 3 squares diagonally
                 // turn 45 degrees clockwise
                 setDrivePowerNoEnc(0.8f, -0.8);
-                if (hasGyroReachedValue(49, MARGIN)) {
+                if (hasGyroReachedValue(51, MARGIN)) {
                     setDrivePower(0.0f, 0.0f);
                     state++;
                 }
@@ -98,7 +70,7 @@ public class BlueFarSideAutonomous extends Methods {
                 useEncoders();
 
 
-                count = calculateEncoderCountFromDistanceRefined(225);
+                count = calculateEncoderCountFromDistanceRefined(223);
                 setDrivePower(0.6, 0.6);
 
                 if (haveEncodersReached(count, count)) {
@@ -119,7 +91,7 @@ public class BlueFarSideAutonomous extends Methods {
                 useEncoders();
 
                 setDrivePower(-0.6, -0.6);
-                count = calculateEncoderCountFromDistanceRefined(29);
+                count = calculateEncoderCountFromDistanceRefined(26);
 
                 if (haveEncodersReached(count, count)) {
                     setDrivePower(0.0f, 0.0f);
@@ -151,7 +123,7 @@ public class BlueFarSideAutonomous extends Methods {
 
                 count = calculateEncoderCountFromDistanceRefined(22);
 
-                if (haveEncodersReached(count, count)||getRuntime()>=3000.0f) {
+                if (haveEncodersReached(count, count) || getRuntime() >= 3000.0f) {
                     setDrivePower(0.0f, 0.0f);
                     resetEncoders();
                     state++;
@@ -167,37 +139,31 @@ public class BlueFarSideAutonomous extends Methods {
             case 11:
                 //lift arm to drop climbers in beacon
 
-                // ZiplineTriggerServoRight.setPosition(climberArmPosition);
-                ZiplineTriggerServoRight.setPosition(climberArmPosition);
-                if (ZiplineTriggerServoRight.getPosition() == climberArmPosition) {
-                    climberArmPosition = 1;
-                    state++;
+
+                climberServo.setPosition(climberArmPosition);
+                if (climberServo.getPosition() == climberArmPosition) {
+
+                    state += 4;
                 }
 
 
                 break;
 //
-            case 12:
-                //return arm to original position
-
-                // ZiplineTriggerServoRight.setPosition(climberArmPosition);
-                ZiplineTriggerServoRight.setPosition(climberArmPosition);
-                if (ZiplineTriggerServoRight.getPosition() == climberArmPosition) {
-                    climberArmPosition = 0;
-                    state+= 2;
-                }
-                break;
 
 
             case 15:
-
+                resetStartTime();
                 useEncoders();
-                setDrivePower(-.3, -0.3);
-                count = calculateEncoderCountFromDistanceRefined(25);
-                if (haveEncodersReached(count, count)) {
-                    setDrivePower(0.0f, 0.0f);
-                    resetEncoders();
-                    state++;
+                setDrivePower(0, 0);
+                if (getRuntime() >= 500.0f) {
+
+                    setDrivePower(-.3, -0.3);
+                    count = calculateEncoderCountFromDistanceRefined(25);
+                    if (haveEncodersReached(count, count)) {
+                        setDrivePower(0.0f, 0.0f);
+                        resetEncoders();
+                        state++;
+                    }
                 }
                 break;
 
@@ -221,10 +187,10 @@ public class BlueFarSideAutonomous extends Methods {
             case 18:
 
                 useEncoders();
-
+                setDrivePower(.6, 0.6);
                 count = calculateEncoderCountFromDistanceRefined(20);
 
-                setDrivePower(.6, 0.6);
+
                 if (haveEncodersReached(count, count)) {
                     setDrivePower(0.0f, 0.0f);
                     resetEncoders();
