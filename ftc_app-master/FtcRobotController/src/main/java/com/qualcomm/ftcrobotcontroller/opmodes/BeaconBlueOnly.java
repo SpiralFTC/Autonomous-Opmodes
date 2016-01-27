@@ -21,16 +21,7 @@ public class BeaconBlueOnly extends Methods {
 
 
 
-    @Override
-    public void start() {
-        super.start();
-
-        leftMotor.setDirection(DcMotor.Direction.REVERSE);
-        leftMotor.setMode(DcMotorController.RunMode.RESET_ENCODERS);
-        rightMotor.setMode(DcMotorController.RunMode.RESET_ENCODERS);
-        //In the start, we reset the encoders and set the direction of the motor.
-
-    }
+  
 
     @Override
     public void loop() {
@@ -87,7 +78,7 @@ public class BeaconBlueOnly extends Methods {
                 //set one motor to go one way, and the other motor to go the other way.
                 //This allows the robot to do a dual wheel turn
                 //For turning, we don't need the encoders,
-                if (hasGyroReachedValue(45, MARGIN)) {
+                if (hasGyroReachedValue(50, MARGIN)) {
                     //if we have reached the correct value, we set the motor power to 0, and move up a case,
                     setDrivePower(0.0f, 0.0f);
                     state++;
@@ -111,7 +102,7 @@ public class BeaconBlueOnly extends Methods {
                 break;
             case 6:
                 // turn another 45 degrees
-                setDrivePowerNoEnc(-0.08f, +0.08f);
+                setDrivePowerNoEnc(-0.8f, +0.8f);
                 if (hasGyroReachedValue(90, MARGIN)) {
                     setDrivePower(0.0f, 0.0f);
                     state++;
@@ -120,8 +111,8 @@ public class BeaconBlueOnly extends Methods {
 
             case 7: // move till the wall.
                 count = calculateEncoderCountFromDistance(20);
-                setDrivePower(0.1,0.1);
-                if(haveEncodersReached(count,count)){
+                setDrivePower(0.4,0.4);
+                if(haveEncodersReached(count,count)||getRuntime()>=3000.0f){
                     setDrivePower(0.0f,0.0f);
                     resetEncoders();
                     state++;
@@ -132,16 +123,16 @@ public class BeaconBlueOnly extends Methods {
                     state++;
                 }
             case 9://lower the arm. This drops the climbers
-                servoOne.setPosition(1);
-                if(servoOne.getPosition()==1){
+                climberServo.setPosition(1);
+                if(climberServo.getPosition()==1){
                     state++;
 
                 }
                 break;
             case 10:
                 //raise the arm.
-                servoOne.setPosition(0);
-                if(servoOne.getPosition()==0){
+               climberServo.setPosition(0);
+                if(climberServo.getPosition()==0){
                     state++;
 
                 }
