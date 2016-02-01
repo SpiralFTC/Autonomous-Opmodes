@@ -34,6 +34,7 @@ public abstract class Constants extends OpMode {
 
 
    public int state = 0;
+    public int crap = 0;
 
     static int MARGIN = 1;
     private double startTime;
