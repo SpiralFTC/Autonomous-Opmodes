@@ -33,13 +33,10 @@ public class TankDrive extends OpModeMethods {
 //            right.setPower(rightHighPower);
 //            left.setPower(leftHighPower);
 //        }
-        double armMotorPivotPowerLeft = gamepad1.left_trigger;
-        double armMotorPivotPowerRight = gamepad1.right_trigger;
-
-        armMotorPivotPowerLeft = Range.clip(armMotorPivotPowerLeft, 0, 0.5);
-        armMotorPivotPowerRight = Range.clip(armMotorPivotPowerRight, 0, 0.1);
+        double armMotorPivotPowerLeft = gamepad2.left_stick_y;
+        armMotorPivotPowerLeft = Range.clip(armMotorPivotPowerLeft, -0.75, 0.75);
         armMotorPivot.setPower(armMotorPivotPowerLeft);
-        armMotorPivot.setPower(-armMotorPivotPowerRight);
+
 
         double armPower = -gamepad1.right_stick_y;
         armPower = Range.clip(armPower, -1, 1);
@@ -74,7 +71,7 @@ public class TankDrive extends OpModeMethods {
 
         armPosition = Range.clip(armPosition, 0.01, 0.99);
         servoPositionRight = Range.clip(servoPositionRight, 0.25, 0.92);
-        latchPosition = Range.clip(latchPosition, 0.01, 0.99);
+       // latchPosition = Range.clip(latchPosition, 0.01, 0.99);
         servoPositionLeft = Range.clip(servoPositionLeft, 0.21, 0.99);
 
         triggerServoLeft.setPosition(servoPositionRight);
