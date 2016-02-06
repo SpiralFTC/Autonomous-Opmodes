@@ -33,10 +33,14 @@ public class TankDrive extends OpModeMethods {
 //            right.setPower(rightHighPower);
 //            left.setPower(leftHighPower);
 //        }
+        double armMotorPivotPowerLeft = gamepad2.left_stick_y;
+        armMotorPivotPowerLeft = Range.clip(armMotorPivotPowerLeft, -0.75, 0.75);
+        armMotorPivot.setPower(armMotorPivotPowerLeft);
 
-        double sweeperPower = -gamepad2.left_stick_y;
-        sweeperPower = Range.clip(sweeperPower, -1, 1);
-        armMotor.setPower(sweeperPower);
+
+        double armPower = -gamepad1.right_stick_y;
+        armPower = Range.clip(armPower, -1, 1);
+        armMotorHang.setPower(armPower);
 
         if (gamepad2.y) {
             armPosition += armDelta;
@@ -56,13 +60,6 @@ public class TankDrive extends OpModeMethods {
             servoPositionRight -= servoRightDelta;
         }
 
-        if (gamepad2.dpad_up) {
-            latchPosition -= latchDelta;
-        }
-
-        if (gamepad2.dpad_down) {
-            latchPosition += latchDelta;
-        }
         if (gamepad2.dpad_left) {
             servoPositionLeft += servoLeftDelta;
         }
@@ -72,16 +69,14 @@ public class TankDrive extends OpModeMethods {
         }
 
 
-
-
         armPosition = Range.clip(armPosition, 0.01, 0.99);
         servoPositionRight = Range.clip(servoPositionRight, 0.25, 0.92);
-        latchPosition = Range.clip(latchPosition, 0.01, 0.99);
+       // latchPosition = Range.clip(latchPosition, 0.01, 0.99);
         servoPositionLeft = Range.clip(servoPositionLeft, 0.21, 0.99);
 
         triggerServoLeft.setPosition(servoPositionRight);
         climberServo.setPosition(armPosition);
-        armLatchServo.setPosition(latchPosition);
+        //armLatchServo.setPosition(latchPosition);
         ZiplineTriggerServoRight.setPosition(servoPositionLeft);
 
     }
