@@ -7,6 +7,9 @@ import com.qualcomm.robotcore.hardware.Servo;
  * Created by Choo Choo on 12/5/2015.
  */
 public class  OpModeMethods extends OpMode{
+    int speed = 0;
+    int armSpeed = 0;
+
     DcMotor right;
     DcMotor left;
     DcMotor armMotorPivot;

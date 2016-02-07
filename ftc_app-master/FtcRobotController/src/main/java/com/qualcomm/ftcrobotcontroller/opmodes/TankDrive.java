@@ -23,24 +23,66 @@ public class TankDrive extends OpModeMethods {
 //            leftHighPower = Range.clip(leftHighPower, -1, 1);
 //            right.setPower(leftHighPower);
 //            left.setPower(rightHighPower);
+        if (gamepad1.y && speed == 0) {
 
-        rightLowPower = Range.clip(rightLowPower, -1, 1);
-        leftLowPower = Range.clip(leftLowPower, -1, 1);
+            speed = 1;
+        }
+        if (gamepad1.a && speed == 1) {
+
+
+            speed = 0;
+
+        }
+        switch (speed) {
+            case 0:
+                rightLowPower = Range.clip(rightLowPower, -0.6, 0.6);
+                leftLowPower = Range.clip(leftLowPower, -0.6, 0.6);
+                break;
+            case 1:
+                rightLowPower = Range.clip(rightLowPower, -1, 1);
+                leftLowPower = Range.clip(leftLowPower, -1, 1);
+                break;
+            default:
+                break;
+
+        }
+
         right.setPower(leftLowPower);
         left.setPower(rightLowPower);
+        telemetry.addData("speed is the key", speed);
+        telemetry.addData("PowerL", leftLowPower);
+        telemetry.addData("PowerR", rightLowPower);
 
 //        if(gamepad1.left_bumper && gamepad1.right_bumper){
 //            right.setPower(rightHighPower);
 //            left.setPower(leftHighPower);
 //        }
-        double armMotorPivotPowerLeft = gamepad2.left_stick_y;
-        armMotorPivotPowerLeft = Range.clip(armMotorPivotPowerLeft, -0.75, 0.75);
-        armMotorPivot.setPower(armMotorPivotPowerLeft);
+        double armMotorPivotPower = gamepad2.left_stick_y;
+
+        if (gamepad2.dpad_up && armSpeed == 0) {
+            armSpeed = 1;
+        }
+        if (gamepad2.dpad_down && armSpeed == 1) {
+            armSpeed = 0;
+        }
+
+        switch (armSpeed) {
+            case 0:
+                armMotorPivotPower = Range.clip(armMotorPivotPower, -0.25, 0.25);
+                break;
+            case 1:
+                armMotorPivotPower = Range.clip(armMotorPivotPower, -0.55, 0.55);
+                break;
+            default:
+                break;
+        }
+        armMotorPivot.setPower(armMotorPivotPower);
 
 
-        double armPower = -gamepad1.right_stick_y;
+        double armPower = -gamepad2.right_stick_y;
         armPower = Range.clip(armPower, -1, 1);
         armMotorHang.setPower(armPower);
+
 
         if (gamepad2.y) {
             armPosition += armDelta;
@@ -71,8 +113,8 @@ public class TankDrive extends OpModeMethods {
 
         armPosition = Range.clip(armPosition, 0.01, 0.99);
         servoPositionRight = Range.clip(servoPositionRight, 0.25, 0.92);
-       // latchPosition = Range.clip(latchPosition, 0.01, 0.99);
-        servoPositionLeft = Range.clip(servoPositionLeft, 0.21, 0.99);
+        // latchPosition = Range.clip(latchPosition, 0.01, 0.99);
+        servoPositionLeft = Range.clip(servoPositionLeft, 0.15, 0.99);
 
         triggerServoLeft.setPosition(servoPositionRight);
         climberServo.setPosition(armPosition);
