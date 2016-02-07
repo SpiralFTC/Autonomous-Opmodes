@@ -28,7 +28,7 @@ public class TankDrive extends OpModeMethods {
         }
         if (gamepad1.a && speed == 1) {
 
-            amp = 0.6;          
+            amp = 0.6;
             speed = 0;
 
         }
@@ -58,21 +58,24 @@ public class TankDrive extends OpModeMethods {
 //            right.setPower(rightHighPower);
 //            left.setPower(leftHighPower);
 //        }
-        double armMotorPivotPower = gamepad2.left_stick_y;
+
 
         if (gamepad2.dpad_up && armSpeed == 0) {
             armSpeed = 1;
+//            armAmp = 1;
         }
         if (gamepad2.dpad_down && armSpeed == 1) {
             armSpeed = 0;
+           // armAmp = 0.3;
         }
-
+        double armMotorPivotPower = gamepad2.left_stick_y ;
+        armMotorPivotPower = Range.clip(armMotorPivotPower, -1, 1);
         switch (armSpeed) {
             case 0:
                 armMotorPivotPower = Range.clip(armMotorPivotPower, -0.25, 0.25);
                 break;
             case 1:
-                armMotorPivotPower = Range.clip(armMotorPivotPower, -0.55, 0.55);
+
                 break;
             default:
                 break;

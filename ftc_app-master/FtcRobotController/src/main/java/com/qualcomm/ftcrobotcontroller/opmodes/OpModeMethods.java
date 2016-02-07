@@ -10,6 +10,7 @@ public class  OpModeMethods extends OpMode{
     int speed = 0;
     int armSpeed = 0;
     double amp = 0;
+    double armAmp = 0;
 
     DcMotor right;
     DcMotor left;
