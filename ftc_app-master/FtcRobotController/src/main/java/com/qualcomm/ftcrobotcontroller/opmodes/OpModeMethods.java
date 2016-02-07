@@ -9,6 +9,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 public class  OpModeMethods extends OpMode{
     int speed = 0;
     int armSpeed = 0;
+    double amp = 0;
 
     DcMotor right;
     DcMotor left;

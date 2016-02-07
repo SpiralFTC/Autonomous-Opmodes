@@ -14,8 +14,7 @@ public class TankDrive extends OpModeMethods {
     public void loop() {
 
 
-        double rightLowPower = -gamepad1.right_stick_y;
-        double leftLowPower = -gamepad1.left_stick_y;
+
 
 //            double rightHighPower = -gamepad1.right_stick_y;
 //            double leftHighPower = -gamepad1.left_stick_y;
@@ -24,15 +23,17 @@ public class TankDrive extends OpModeMethods {
 //            right.setPower(leftHighPower);
 //            left.setPower(rightHighPower);
         if (gamepad1.y && speed == 0) {
-
+            amp = 1;
             speed = 1;
         }
         if (gamepad1.a && speed == 1) {
 
-
+            amp = 0.6;          
             speed = 0;
 
         }
+        double rightLowPower = -gamepad1.right_stick_y * amp;
+        double leftLowPower = -gamepad1.left_stick_y * amp;
         switch (speed) {
             case 0:
                 rightLowPower = Range.clip(rightLowPower, -0.6, 0.6);
