@@ -72,7 +72,7 @@ public class TankDrive extends OpModeMethods {
         armMotorPivotPower = Range.clip(armMotorPivotPower, -1, 1);
         switch (armSpeed) {
             case 0:
-                armMotorPivotPower = Range.clip(armMotorPivotPower, -0.25, 0.25);
+                armMotorPivotPower = Range.clip(armMotorPivotPower, -0.125, 0.125);
                 break;
             case 1:
 
@@ -80,8 +80,8 @@ public class TankDrive extends OpModeMethods {
             default:
                 break;
         }
-        armMotorPivot.setPower(armMotorPivotPower);
-
+        armMotorPivotLeft.setPower(armMotorPivotPower);
+        armMotorPivotRight.setPower(armMotorPivotPower);
 
         double armPower = -gamepad2.right_stick_y;
         armPower = Range.clip(armPower, -1, 1);
