@@ -76,7 +76,8 @@ public class TankDrive extends OpModeMethods {
             default:
                 break;
         }
-        armMotorPivot.setPower(armMotorPivotPower);
+        armMotorPivotLeft.setPower(armMotorPivotPower);
+        armMotorPivotRight.setPower(armMotorPivotPower);
 
 
         double armPower = -gamepad2.right_stick_y;
