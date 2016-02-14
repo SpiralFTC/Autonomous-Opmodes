@@ -14,7 +14,8 @@ public class  OpModeMethods extends OpMode{
 
     DcMotor right;
     DcMotor left;
-    DcMotor armMotorPivot;
+    DcMotor armMotorPivotLeft;
+    DcMotor armMotorPivotRight;
     DcMotor armMotorHang;
 
     Servo triggerServoLeft;
@@ -47,7 +48,9 @@ public class  OpModeMethods extends OpMode{
         left = hardwareMap.dcMotor.get("left");
         left.setDirection(DcMotor.Direction.REVERSE);
 
-        armMotorPivot = hardwareMap.dcMotor.get("pivot");
+        armMotorPivotLeft = hardwareMap.dcMotor.get("pivotL");
+        armMotorPivotRight = hardwareMap.dcMotor.get("pivotR");
+        armMotorPivotLeft.setDirection(DcMotor.Direction.REVERSE);
         armMotorHang = hardwareMap.dcMotor.get("hang");
 
 
