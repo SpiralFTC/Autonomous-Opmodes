@@ -29,11 +29,12 @@ public abstract class Constants extends OpMode {
     Servo climberServo;
 
 
-    double climberArmPosition = 0.9;
+    double climberArmPosition = 0.8;
     double triggerServoRightPosition = 1;
 
 
     public int state = 0;
+    public int crap = 0;
 
     static int MARGIN = 1;
     private double startTime;

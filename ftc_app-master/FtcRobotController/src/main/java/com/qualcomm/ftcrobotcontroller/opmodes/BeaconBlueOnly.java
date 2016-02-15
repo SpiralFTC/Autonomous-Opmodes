@@ -22,6 +22,7 @@ public class BeaconBlueOnly extends Methods {
         rightMotor.setMode(DcMotorController.RunMode.RESET_ENCODERS);
         //In the start, we reset the encoders and set the direction of the motor.
 
+
     }
 
     @Override
@@ -44,7 +45,7 @@ public class BeaconBlueOnly extends Methods {
             case 1: // move 2 squares
                 useEncoders();
 
-                double count = calculateEncoderCountFromDistanceRefined(100);
+                double count = calculateEncoderCountFromDistanceRefined(95);
 
                 setDrivePower(0.6, 0.6);
 
@@ -106,7 +107,7 @@ public class BeaconBlueOnly extends Methods {
                 useEncoders();
 
                 setDrivePower(-0.6, -0.6);
-                count = calculateEncoderCountFromDistanceRefined(35);
+                count = calculateEncoderCountFromDistanceRefined(46);
 
                 if (haveEncodersReached(count, count)) {
                     setDrivePower(0.0f, 0.0f);
@@ -132,10 +133,8 @@ public class BeaconBlueOnly extends Methods {
             case 8:
                 // turn another 45 degrees
                 useEncoders();
-
                 setDrivePower(0.6, 0.6);
-                count = calculateEncoderCountFromDistanceRefined(25);
-
+                count = calculateEncoderCountFromDistanceRefined(27);
                 if (haveEncodersReached(count, count)) {
                     setDrivePower(0.0f, 0.0f);
                     resetEncoders();

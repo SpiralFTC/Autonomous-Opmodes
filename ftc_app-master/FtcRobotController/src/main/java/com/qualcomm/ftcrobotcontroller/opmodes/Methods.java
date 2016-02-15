@@ -23,7 +23,6 @@ public abstract class Methods extends Constants {
         }
         leftMotor = hardwareMap.dcMotor.get("left");
         rightMotor = hardwareMap.dcMotor.get("right");
-        armLatchServo.setPosition(1);
 
     }
 

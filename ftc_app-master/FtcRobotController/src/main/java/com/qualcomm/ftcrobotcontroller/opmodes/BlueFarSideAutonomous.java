@@ -27,7 +27,7 @@ public class BlueFarSideAutonomous extends Methods {
                 useEncoders();
 
 
-                double count = calculateEncoderCountFromDistanceRefined(25);
+                double count = calculateEncoderCountFromDistanceRefined(23);
 
                 setDrivePower(.6, .6);
                 //
@@ -59,7 +59,7 @@ public class BlueFarSideAutonomous extends Methods {
             case 3: // move 3 squares diagonally
                 // turn 45 degrees clockwise
                 setDrivePowerNoEnc(0.8f, -0.8);
-                if (hasGyroReachedValue(51, MARGIN)) {
+                if (hasGyroReachedValue(53, MARGIN)) {
                     setDrivePower(0.0f, 0.0f);
                     state++;
                 }
@@ -117,15 +117,21 @@ public class BlueFarSideAutonomous extends Methods {
                 break;
 
             case 9:
-                resetStartTime();
+                if (crap == 0) {
+                    resetStartTime();
+                    crap++;
+                }
+
+
                 // move till wall
-                setDrivePower(0.4, 0.4);
+                setDrivePower(0.6, 0.6);
 
                 count = calculateEncoderCountFromDistanceRefined(22);
 
-                if (haveEncodersReached(count, count) || getRuntime() >= 3000.0f) {
+                if (haveEncodersReached(count, count) || getRuntime() >= 3000) {
                     setDrivePower(0.0f, 0.0f);
                     resetEncoders();
+                    crap++;
                     state++;
                 }
                 break;
@@ -143,7 +149,7 @@ public class BlueFarSideAutonomous extends Methods {
                 climberServo.setPosition(climberArmPosition);
                 if (climberServo.getPosition() == climberArmPosition) {
 
-                    state += 4;
+                    state += 3;
                 }
 
 
