@@ -9,6 +9,8 @@ import com.qualcomm.robotcore.hardware.Servo;
 public class  OpModeMethods extends OpMode{
     int speed = 0;
     int armSpeed = 0;
+    double amp = 0;
+    double armAmp = 0;
 
     DcMotor right;
     DcMotor left;
@@ -48,7 +50,7 @@ public class  OpModeMethods extends OpMode{
 
         armMotorPivotLeft = hardwareMap.dcMotor.get("pivotL");
         armMotorPivotRight = hardwareMap.dcMotor.get("pivotR");
-        armMotorPivotRight.setDirection(DcMotor.Direction.REVERSE);
+        armMotorPivotLeft.setDirection(DcMotor.Direction.REVERSE);
         armMotorHang = hardwareMap.dcMotor.get("hang");
 
 
