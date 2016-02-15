@@ -9,7 +9,7 @@ import com.qualcomm.robotcore.hardware.Servo;
  *
  * Autonomous program - use distances to get to beacon
  */
-public class BeaconRedOnly extends Gyro{
+public class BeaconRedOnly extends Methods {
 
     Servo servoOne;
     Servo servoTwo;
@@ -19,37 +19,11 @@ public class BeaconRedOnly extends Gyro{
     static int MARGIN = 2;
     private int turnValue = 0;
 
-    @Override
-    public void init() {
-        servoOne = hardwareMap.servo.get("arm");
-        servoTwo = hardwareMap.servo.get("leftS");
-        gyroSensor = hardwareMap.gyroSensor.get("gyro");
-        gyroSensor.calibrate();
-        if (gyroSensor.isCalibrating()) {
-            sleep(400);
-        }//gives the gyro time to calibrate.
-        leftMotor = hardwareMap.dcMotor.get("left");
-        rightMotor = hardwareMap.dcMotor.get("right");
-        telemetry.addData("Yo init", state);
-        //In our init method, we hardware map our motors and print out our state value.
-        //State is a variable which keeps track of the case we are on in our loop method.
-        //We also calibrate the gyrosensor.
-    }
 
-    @Override
-    public void start() {
-        super.start();
-
-        leftMotor.setDirection(DcMotor.Direction.REVERSE);
-        leftMotor.setMode(DcMotorController.RunMode.RESET_ENCODERS);
-        rightMotor.setMode(DcMotorController.RunMode.RESET_ENCODERS);
-        //In the start, we reset the encoders and set the direction of the motor.
-
-    }
 
     @Override
     public void loop() {
-        telemetry.addData("Gyro Value", gyroSensor.getHeading());
+        telemetry.addData("Methods Value", gyroSensor.getHeading());
         telemetry.addData("Your state", state);
         //We print out our heading and state to see if anything incorrect is happening.
         //If there is an error, it usually has something to do with these 2 variables,

@@ -24,12 +24,14 @@ public abstract class Methods extends Constants {
         leftMotor = hardwareMap.dcMotor.get("left");
         rightMotor = hardwareMap.dcMotor.get("right");
 
+
     }
 
     @Override
     public void start() {
         super.start();
-
+        triggerServoLeft.setPosition(triggerServoRightPosition);
+        armLatchServo.setPosition(triggerServoRightPosition);
         leftMotor.setDirection(DcMotor.Direction.REVERSE);
         leftMotor.setMode(DcMotorController.RunMode.RESET_ENCODERS);
         rightMotor.setMode(DcMotorController.RunMode.RESET_ENCODERS);
@@ -90,7 +92,7 @@ public abstract class Methods extends Constants {
         //In this method, we calculate how many revolutions the encoders should check for.
         double circumference = oneRevolutiontreadLength;
         //This calculates the circumference.
-        double legitDistance = distance ;
+        double legitDistance = distance;
         //This takes in the wheel base for account
         double revolutions = legitDistance / circumference;
         //We need to take distance and convert it into centimeters. This line specifies that.
@@ -106,7 +108,7 @@ public abstract class Methods extends Constants {
 //        //This calculates the circumference.
         double legitDistance = distance - 18;
         //This takes in the wheel base for account
-        double revolutions = legitDistance/circumference;
+        double revolutions = legitDistance / circumference;
         //We need to take distance and convert it into centimeters. This line specifies that.
         //By taking the circumference, one revolution, and dividing the number of centimeters
         //we want to move for, we convert it into revolutions.
@@ -322,6 +324,8 @@ public abstract class Methods extends Constants {
  * <p/>
  * <p/>
  * Convert distance in centimeters to an encoder count
+ * @param distance
+ * @return Convert distance in centimeters to an encoder count
  * @param distance
  * @return
  */

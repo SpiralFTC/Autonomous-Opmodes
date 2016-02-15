@@ -13,7 +13,7 @@ public abstract class Constants extends OpMode {
     public static GyroSensor gyroSensor;
 
     // public static final double treadLength = 90.01125;
-    //  public static final double oneRevolutiontreadLength = 14.8370192308;
+  //  public static final double oneRevolutiontreadLength = 14.8370192308;
     public static double inchToCentimeterConversion = 2.54;
 
     public int ppr = 1072;
@@ -33,7 +33,7 @@ public abstract class Constants extends OpMode {
     double triggerServoRightPosition = 1;
 
 
-    public int state = 0;
+   public int state = 0;
     public int crap = 0;
 
     static int MARGIN = 1;

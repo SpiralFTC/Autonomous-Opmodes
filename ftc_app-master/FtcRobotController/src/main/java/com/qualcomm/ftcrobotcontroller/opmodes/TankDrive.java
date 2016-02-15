@@ -66,7 +66,7 @@ public class TankDrive extends OpModeMethods {
         }
         if (gamepad2.dpad_down && armSpeed == 1) {
             armSpeed = 0;
-            // armAmp = 0.3;
+           // armAmp = 0.3;
         }
         double armMotorPivotPower = gamepad2.left_stick_y ;
 

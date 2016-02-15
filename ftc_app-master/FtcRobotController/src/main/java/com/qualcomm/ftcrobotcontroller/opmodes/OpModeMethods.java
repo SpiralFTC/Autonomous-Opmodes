@@ -20,7 +20,7 @@ public class  OpModeMethods extends OpMode{
 
     Servo triggerServoLeft;
     Servo climberServo;
-    // Servo armLatchServo;
+   // Servo armLatchServo;
     Servo ZiplineTriggerServoRight;
 
     GyroSensor gyro;
@@ -59,7 +59,7 @@ public class  OpModeMethods extends OpMode{
 
         triggerServoLeft = hardwareMap.servo.get("arm");
 
-        //  armLatchServo = hardwareMap.servo.get("armLatch");
+      //  armLatchServo = hardwareMap.servo.get("armLatch");
 
         gyro = hardwareMap.gyroSensor.get("gyro");
 
@@ -87,3 +87,4 @@ public class  OpModeMethods extends OpMode{
     }
 
 }
+

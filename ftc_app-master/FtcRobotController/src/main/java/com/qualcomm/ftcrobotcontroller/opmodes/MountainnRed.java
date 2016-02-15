@@ -8,14 +8,14 @@ import com.qualcomm.robotcore.hardware.Servo;
  * Created by heel7 on 12/30/2015.
  */
 
-public class MountianBlue extends Methods {
+public class MountainnRed extends Methods {
 
     Servo servoOne;
     Servo servoTwo;
    // int troll = (int) Math.random() * 55;
 
     private int state = 0;
-    //private int x = 0;
+   // private int x = 0;
     //static int MARGIN = 2;
    // private int turnValue = 0;
     @Override
@@ -66,7 +66,7 @@ public class MountianBlue extends Methods {
                 break;
             case 3:
                 setDrivePowerNoEnc(-0.08f,+0.08f);
-                if(hasGyroReachedValue(90,MARGIN)){
+                if(hasGyroReachedValue(270,MARGIN)){
                     setDrivePower(0.0f,0.0f);
                     state++;
                 }

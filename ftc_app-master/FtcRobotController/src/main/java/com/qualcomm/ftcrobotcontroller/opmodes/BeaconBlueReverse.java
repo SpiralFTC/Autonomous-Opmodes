@@ -163,7 +163,7 @@ public class BeaconBlueReverse extends Methods {
                 }
                 break;
             case 11:
-                resetEncoders();
+               resetEncoders();
                 state++;
                 break;
             case 12:
