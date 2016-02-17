@@ -59,7 +59,7 @@ public class BlueFarSideAutonomous extends Methods {
             case 3: // move 3 squares diagonally
                 // turn 45 degrees clockwise
                 setDrivePowerNoEnc(0.8f, -0.8);
-                if (hasGyroReachedValue(53, MARGIN)) {
+                if (hasGyroReachedValue(48, MARGIN)) {
                     setDrivePower(0.0f, 0.0f);
                     state++;
                 }
@@ -70,7 +70,7 @@ public class BlueFarSideAutonomous extends Methods {
                 useEncoders();
 
 
-                count = calculateEncoderCountFromDistanceRefined(223);
+                count = calculateEncoderCountFromDistanceRefined(238);
                 setDrivePower(0.6, 0.6);
 
                 if (haveEncodersReached(count, count)) {
@@ -91,7 +91,7 @@ public class BlueFarSideAutonomous extends Methods {
                 useEncoders();
 
                 setDrivePower(-0.6, -0.6);
-                count = calculateEncoderCountFromDistanceRefined(26);
+                count = calculateEncoderCountFromDistanceRefined(55);
 
                 if (haveEncodersReached(count, count)) {
                     setDrivePower(0.0f, 0.0f);
@@ -109,7 +109,7 @@ public class BlueFarSideAutonomous extends Methods {
                 break;
             case 8:
                 setDrivePowerNoEnc(0.8f, -0.8);
-                if (hasGyroReachedValue(90, MARGIN)) {
+                if (hasGyroReachedValue(94, MARGIN)) {
                     setDrivePower(0.0f, 0.0f);
                     state++;
                 }
@@ -124,9 +124,9 @@ public class BlueFarSideAutonomous extends Methods {
 
 
                 // move till wall
-                setDrivePower(0.6, 0.6);
+                setDrivePower(0.4, 0.4);
 
-                count = calculateEncoderCountFromDistanceRefined(22);
+                count = calculateEncoderCountFromDistanceRefined(35);
 
                 if (haveEncodersReached(count, count) || getRuntime() >= 3000) {
                     setDrivePower(0.0f, 0.0f);
