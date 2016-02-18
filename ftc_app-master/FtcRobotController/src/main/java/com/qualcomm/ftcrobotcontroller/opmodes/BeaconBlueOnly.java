@@ -122,6 +122,7 @@ public class BeaconBlueOnly extends Methods {
                 if(haveDriverEncodersReset()){
                     state++;
                 }
+                break;
             case 9://lower the arm. This drops the climbers
                 climberServo.setPosition(1);
                 if(climberServo.getPosition()==1){
