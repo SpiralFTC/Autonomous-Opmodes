@@ -72,8 +72,20 @@ public class BlueFarSideAutonomous extends Methods {
 
                 count = calculateEncoderCountFromDistanceRefined(238);
                 setDrivePower(0.6, 0.6);
+                if(gyroSensor.getHeading()> 48+MARGIN||gyroSensor.getHeading()< 48-MARGIN){
+                    if(gyroSensor.getHeading()>48+MARGIN){
+                        int heading = gyroSensor.getHeading();
+                        int error = heading-50;
+                        setDrivePower(0.6-(error*k),0.6+(error*k));
+                    }
+                    if(gyroSensor.getHeading()<48-MARGIN){
+                        int heading = gyroSensor.getHeading();
+                        int error =47-heading ;
+                        setDrivePower(0.6+(error*k),0.6-(error*k));
+                    }
+                }
 
-                if (haveEncodersReached(count, count)) {
+                else if (haveEncodersReached(count, count)) {
                     setDrivePower(0.0f, 0.0f);
                     resetEncoders();
                     state++;

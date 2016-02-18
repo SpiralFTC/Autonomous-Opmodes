@@ -98,6 +98,7 @@ public class FtcOpModeRegister implements OpModeRegister {
         manager.register("RedFarSideAuto", RedFarSideAutonomous.class);
         manager.register("Auto ", Autonomous.class);
         manager.register("BlueFarSideAuto", BlueFarSideAutonomous.class);
+        manager.register("test", TeleOp.class);
 
 
     }

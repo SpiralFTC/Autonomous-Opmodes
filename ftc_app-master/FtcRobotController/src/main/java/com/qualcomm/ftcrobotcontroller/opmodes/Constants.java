@@ -20,6 +20,8 @@ public abstract class Constants extends OpMode {
     double diameter = 9.75;
     double oneRevolutiontreadLength = 17.78;
 
+    double k = 0.002;
+
     DcMotor right;
     DcMotor left;
 
