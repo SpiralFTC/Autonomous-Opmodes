@@ -3,6 +3,7 @@ package com.qualcomm.ftcrobotcontroller.opmodes;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorController;
+import com.qualcomm.robotcore.util.Range;
 
 /**
  * Created by Choo Choo on 12/30/2015.
@@ -72,16 +73,24 @@ public class BlueFarSideAutonomous extends Methods {
 
                 count = calculateEncoderCountFromDistanceRefined(238);
                 setDrivePower(0.6, 0.6);
-                if(gyroSensor.getHeading()> 48+MARGIN||gyroSensor.getHeading()< 48-MARGIN){
-                    if(gyroSensor.getHeading()>48+MARGIN){
-                        int heading = gyroSensor.getHeading();
+                int heading = gyroSensor.getHeading();
+                if(heading> 48+MARGIN||heading< 48-MARGIN){
+                    if(heading>48+MARGIN){
+
                         int error = heading-50;
-                        setDrivePower(0.6-(error*k),0.6+(error*k));
+                        double leftPower =0.6+(error*k);
+                        double rightPower = 0.6-(error*k);
+                        Range.clip(leftPower,-1,1);
+                        Range.clip(rightPower,-1,1);
+                        setDrivePower(rightPower,leftPower);
                     }
-                    if(gyroSensor.getHeading()<48-MARGIN){
-                        int heading = gyroSensor.getHeading();
+                    if(heading<48-MARGIN){
                         int error =47-heading ;
-                        setDrivePower(0.6+(error*k),0.6-(error*k));
+                        double leftPower =0.6-(error*k);
+                        double rightPower = 0.6+(error*k);
+                        Range.clip(leftPower,-1,1);
+                        Range.clip(rightPower,-1,1);
+                        setDrivePower(rightPower,leftPower);
                     }
                 }
 
