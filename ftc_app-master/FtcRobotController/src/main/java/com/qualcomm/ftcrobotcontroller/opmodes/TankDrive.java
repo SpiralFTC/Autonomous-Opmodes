@@ -116,9 +116,9 @@ public class TankDrive extends OpModeMethods {
 
 
         armPosition = Range.clip(armPosition, 0.01, 0.99);
-        servoPositionRight = Range.clip(servoPositionRight, 0.25, 0.92);
+        servoPositionRight = Range.clip(servoPositionRight, 0.01, 0.79);
         // latchPosition = Range.clip(latchPosition, 0.01, 0.99);
-        servoPositionLeft = Range.clip(servoPositionLeft, 0.25, 0.92);
+        servoPositionLeft = Range.clip(servoPositionLeft, 0.17, 0.85);
 
         triggerServoLeft.setPosition(servoPositionRight);
         climberServo.setPosition(armPosition);

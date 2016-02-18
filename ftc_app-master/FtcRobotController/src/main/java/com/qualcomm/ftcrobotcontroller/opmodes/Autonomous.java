@@ -16,27 +16,9 @@ public class Autonomous extends Methods {
     //Methods myGyro = new Methods();
     double climberArmPosition = 1;
 
-    @Override
-    public void init() {
-        climberServo = hardwareMap.servo.get("arm");
-        two = hardwareMap.servo.get("leftS");
-        gyroSensor = hardwareMap.gyroSensor.get("gyro");
-        gyroSensor.calibrate();
-        if (gyroSensor.isCalibrating()) {
-            sleep(400);
-        }
 
-        leftMotor = hardwareMap.dcMotor.get("left");
-        rightMotor = hardwareMap.dcMotor.get("right");
 
-    }
-       @Override
-        public void start() {
 
-            leftMotor.setDirection(DcMotor.Direction.REVERSE);
-            leftMotor.setMode(DcMotorController.RunMode.RESET_ENCODERS);
-            rightMotor.setMode(DcMotorController.RunMode.RESET_ENCODERS);
-        }
 
 
 
@@ -54,21 +36,32 @@ public class Autonomous extends Methods {
 
 
             case 0:
-                climberServo.setPosition(climberArmPosition);
-                if (climberServo.getPosition() == climberArmPosition) {
-                   climberArmPosition = 1;
-                    casenumber++;
+                if (crap == 0) {
+                    resetStartTime();
+                    crap++;
                 }
 
-                break;
-            case 1:
-                climberServo.setPosition(climberArmPosition);
-                if (climberServo.getPosition() == climberArmPosition) {
 
-                    casenumber++;
+                // move till wall
+                setDrivePower(0.6, 0.6);
+
+                // double count = calculateEncoderCountFromDistanceRefined(22);
+
+                if ( getRuntime() >= 3000) {
+                    setDrivePower(0.0f, 0.0f);
+                    resetEncoders();
+                    crap++;
+                    state++;
                 }
-
                 break;
+            //case 1:
+//                climberServo.setPosition(climberArmPosition);
+//                if (climberServo.getPosition() == climberArmPosition) {
+//
+//                    casenumber++;
+//                }
+//
+//                break;
 
             default:
                 break;
