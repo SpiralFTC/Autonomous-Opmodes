@@ -10,9 +10,6 @@ import com.qualcomm.robotcore.hardware.DcMotorController;
 public class RedFarSideAutonomous extends Methods {
 
 
-
-
-
     @Override
     public void loop() {
         telemetry.addData("Gyro Value: ", gyroSensor.getHeading());
@@ -62,7 +59,7 @@ public class RedFarSideAutonomous extends Methods {
             case 3: // move 3 squares diagonally
                 // turn 45 degrees clockwise
                 setDrivePowerNoEnc(-0.8f, +0.8f);
-                if (hasGyroReachedValue(311, MARGIN)) {
+                if (hasGyroReachedValue(312, MARGIN)) {
                     setDrivePower(0.0f, 0.0f);
                     state++;
                 }
@@ -73,7 +70,7 @@ public class RedFarSideAutonomous extends Methods {
                 useEncoders();
 
 
-                count = calculateEncoderCountFromDistanceRefined(225);
+                count = calculateEncoderCountFromDistanceRefined(238);
                 setDrivePower(0.6, 0.6);
 
                 if (haveEncodersReached(count, count)) {
@@ -94,7 +91,7 @@ public class RedFarSideAutonomous extends Methods {
                 useEncoders();
 
                 setDrivePower(-0.6, -0.6);
-                count = calculateEncoderCountFromDistanceRefined(29);
+                count = calculateEncoderCountFromDistanceRefined(55);
 
                 if (haveEncodersReached(count, count)) {
                     setDrivePower(0.0f, 0.0f);
@@ -112,7 +109,7 @@ public class RedFarSideAutonomous extends Methods {
                 break;
             case 8:
                 setDrivePowerNoEnc(-0.8f, +0.8f);
-                if (hasGyroReachedValue(270, MARGIN)) {
+                if (hasGyroReachedValue(266, MARGIN)) {
                     setDrivePower(0.0f, 0.0f);
                     state++;
                 }
@@ -123,9 +120,9 @@ public class RedFarSideAutonomous extends Methods {
                 // move till wall
                 setDrivePower(0.4, 0.4);
 
-                count = calculateEncoderCountFromDistanceRefined(22);
+                count = calculateEncoderCountFromDistanceRefined(34);
 
-                if (haveEncodersReached(count, count)||getRuntime()>=3000.0f) {
+                if (haveEncodersReached(count, count) || getRuntime() >= 3000.0f) {
                     setDrivePower(0.0f, 0.0f);
                     resetEncoders();
                     state++;
@@ -141,24 +138,55 @@ public class RedFarSideAutonomous extends Methods {
             case 11:
                 //lift arm to drop climbers in beacon
 
-                //  ZiplineTriggerServoRight.setPosition(climberArmPosition);
-                ZiplineTriggerServoRight.setPosition(climberArmPosition);
-                if (ZiplineTriggerServoRight.getPosition() == climberArmPosition) {
-                    climberArmPosition = 1;
-                    state++;
+                climberServo.setPosition(climberArmPosition);
+                if (climberServo.getPosition() == climberArmPosition) {
+
+                    state ++;
                 }
 
 
                 break;
 //
             case 12:
-                //return arm to original position
 
-                ZiplineTriggerServoRight.setPosition(climberArmPosition);
-                if (ZiplineTriggerServoRight.getPosition() == climberArmPosition) {
-                    climberArmPosition = 0;
-                    state+= 2;
+                useEncoders();
+                setDrivePower(-0.6, -0.6);
+                count = calculateEncoderCountFromDistanceRefined(35);
+
+                if (haveEncodersReached(count, count)) {
+                    setDrivePower(0.0f, 0.0f);
+                    resetEncoders();
+                    state++;
                 }
+
+                break;
+
+            case 13:
+                if (haveDriverEncodersReset()) {
+                    state++;
+                }
+
+                break;
+            case 14:
+                setDrivePowerNoEnc(-0.8f, 0.8);
+                if (hasGyroReachedValue(180, MARGIN)) {
+                    setDrivePower(0.0f, 0.0f);
+                    state++;
+                }
+
+                break;
+            case 15:
+
+                useEncoders();
+                setDrivePower(0.6, 0.6);
+                count = calculateEncoderCountFromDistanceRefined(55);
+
+                if (haveEncodersReached(count, count)) {
+                    setDrivePower(0.0f, 0.0f);
+                    resetEncoders();
+                    state++;
+                }
+
                 break;
 //            case 13:
 //                resetEncoders();
@@ -172,25 +200,8 @@ public class RedFarSideAutonomous extends Methods {
 //                }
 //
 //                break;
-            case 15:
-
-                useEncoders();
-                setDrivePower(-.3, -0.3);
-                count = calculateEncoderCountFromDistanceRefined(25);
-                if (haveEncodersReached(count, count)) {
-                    setDrivePower(0.0f, 0.0f);
-                    resetEncoders();
-                    state++;
-                }
-                break;
 
 
-            case 16:
-                if (haveDriverEncodersReset()) {
-                    state++;
-                }
-
-                break;
             case 17:
                 setDrivePowerNoEnc(-0.8f, +0.8f);
                 if (hasGyroReachedValue(180, MARGIN)) {

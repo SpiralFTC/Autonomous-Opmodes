@@ -149,37 +149,54 @@ public class BlueFarSideAutonomous extends Methods {
                 climberServo.setPosition(climberArmPosition);
                 if (climberServo.getPosition() == climberArmPosition) {
 
-                    state += 3;
+                    state++;
                 }
 
 
                 break;
-//
+            case 12:
 
-
-            case 15:
-                resetStartTime();
                 useEncoders();
-                setDrivePower(0, 0);
-                if (getRuntime() >= 500.0f) {
+                setDrivePower(-0.6, -0.6);
+                count = calculateEncoderCountFromDistanceRefined(35);
 
-                    setDrivePower(-.3, -0.3);
-                    count = calculateEncoderCountFromDistanceRefined(25);
-                    if (haveEncodersReached(count, count)) {
-                        setDrivePower(0.0f, 0.0f);
-                        resetEncoders();
-                        state++;
-                    }
+                if (haveEncodersReached(count, count)) {
+                    setDrivePower(0.0f, 0.0f);
+                    resetEncoders();
+                    state++;
                 }
+
                 break;
 
-
-            case 16:
+            case 13:
                 if (haveDriverEncodersReset()) {
                     state++;
                 }
 
                 break;
+            case 14:
+                setDrivePowerNoEnc(0.8f, -0.8);
+                if (hasGyroReachedValue(180, MARGIN)) {
+                    setDrivePower(0.0f, 0.0f);
+                    state++;
+                }
+
+                break;
+            case 15:
+
+                useEncoders();
+                setDrivePower(0.6, 0.6);
+                count = calculateEncoderCountFromDistanceRefined(55);
+
+                if (haveEncodersReached(count, count)) {
+                    setDrivePower(0.0f, 0.0f);
+                    resetEncoders();
+                    state++;
+                }
+
+                break;
+
+
             case 17:
                 setDrivePowerNoEnc(0.8f, -0.8f);
                 if (hasGyroReachedValue(180, MARGIN)) {
