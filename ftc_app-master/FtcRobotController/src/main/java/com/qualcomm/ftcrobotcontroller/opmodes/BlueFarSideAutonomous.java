@@ -74,23 +74,18 @@ public class BlueFarSideAutonomous extends Methods {
                 count = calculateEncoderCountFromDistanceRefined(238);
                 setDrivePower(0.6, 0.6);
                 int heading = gyroSensor.getHeading();
-                if(heading> 48+MARGIN||heading< 48-MARGIN){
-                    if(heading>48+MARGIN){
+                if(hasGyroChanged(48,heading)){
+                    if(hasGyroInc(48,heading)){
+                        correctGyroGreater(48,heading);
 
-                        int error = heading-50;
-                        double leftPower =0.6+(error*k);
-                        double rightPower = 0.6-(error*k);
-                        Range.clip(leftPower,-1,1);
-                        Range.clip(rightPower,-1,1);
-                        setDrivePower(rightPower,leftPower);
+
                     }
-                    if(heading<48-MARGIN){
-                        int error =47-heading ;
-                        double leftPower =0.6-(error*k);
-                        double rightPower = 0.6+(error*k);
-                        Range.clip(leftPower,-1,1);
-                        Range.clip(rightPower,-1,1);
-                        setDrivePower(rightPower,leftPower);
+                    if(hasGyroDec(48,heading)){
+                        correctGyroLess(48,heading);
+                    }
+
+                    else {
+                        setDrivePower(0.6,0.6);
                     }
                 }
 

@@ -2,6 +2,7 @@ package com.qualcomm.ftcrobotcontroller.opmodes;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorController;
+import com.qualcomm.robotcore.util.Range;
 
 
 public abstract class Methods extends Constants {
@@ -121,6 +122,22 @@ public abstract class Methods extends Constants {
         rightMotor.setPower(right);
         leftMotor.setPower(left);
     }
+    public void  correctGyroGreater ( int targetHeading,int currentHeading){
+        int error = currentHeading -(targetHeading+MARGIN);
+        double leftPower =0.6+(error*k);
+        double rightPower = 0.6-(error*k);
+        Range.clip(leftPower, -1, 1);
+        Range.clip(rightPower,-1,1);
+        setDrivePower(rightPower,leftPower);
+    }
+    public void  correctGyroLess ( int targetHeading,int currentHeading){
+        int error = (targetHeading+MARGIN-currentHeading);
+        double leftPower =0.6-(error*k);
+        double rightPower = 0.6+(error*k);
+        Range.clip(leftPower, -1, 1);
+        Range.clip(rightPower,-1,1);
+        setDrivePower(rightPower,leftPower);
+    }
 
     public void setDrivePowerNoEnc(double right, double left) {
         //In our program, we use encoders, so we have to specify when not to use encoders
@@ -200,7 +217,32 @@ public abstract class Methods extends Constants {
         return false;
         //if it hasn't turned to a value between the 2 margins, we return false.
     }
+    boolean hasGyroChanged(int target,int actual){
+        if(target==actual){
+            return false;
+        }
+        else {
+            return true;
+        }
 
+
+    }
+    boolean hasGyroInc(int target, int actual){
+        if(actual>(target+MARGIN)){
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+    boolean hasGyroDec(int target, int actual){
+        if(actual<(target-MARGIN)){
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
 
     public static void sleep(long sleepTime) {
         long wakeupTime = System.currentTimeMillis() + sleepTime;
