@@ -72,8 +72,23 @@ public class RedFarSideAutonomous extends Methods {
 
                 count = calculateEncoderCountFromDistanceRefined(238);
                 setDrivePower(0.6, 0.6);
+                int heading = gyroSensor.getHeading();
+                if(hasGyroChanged(312,heading)){
+                    if(hasGyroInc(312,heading)){
+                        correctGyroGreater(312,heading);
 
-                if (haveEncodersReached(count, count)) {
+
+                    }
+                    if(hasGyroDec(312,heading)){
+                        correctGyroLess(312,heading);
+                    }
+
+                    else {
+                        setDrivePower(0.6,0.6);
+                    }
+                }
+
+                else if (haveEncodersReached(count, count)) {
                     setDrivePower(0.0f, 0.0f);
                     resetEncoders();
                     state++;
