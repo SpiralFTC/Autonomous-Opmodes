@@ -70,7 +70,7 @@ public class BlueFarSideAutonomous extends Methods {
                 useEncoders();
 
 
-                count = calculateEncoderCountFromDistanceRefined(238);
+                count = calculateEncoderCountFromDistanceRefined(228);
                 setDrivePower(0.6, 0.6);
 
                 if (haveEncodersReached(count, count)) {
@@ -91,7 +91,7 @@ public class BlueFarSideAutonomous extends Methods {
                 useEncoders();
 
                 setDrivePower(-0.6, -0.6);
-                count = calculateEncoderCountFromDistanceRefined(55);
+                count = calculateEncoderCountFromDistanceRefined(60);
 
                 if (haveEncodersReached(count, count)) {
                     setDrivePower(0.0f, 0.0f);
@@ -126,7 +126,7 @@ public class BlueFarSideAutonomous extends Methods {
                 // move till wall
                 setDrivePower(0.4, 0.4);
 
-                count = calculateEncoderCountFromDistanceRefined(35);
+                count = calculateEncoderCountFromDistanceRefined(40);
 
                 if (haveEncodersReached(count, count) || getRuntime() >= 3000) {
                     setDrivePower(0.0f, 0.0f);
@@ -147,26 +147,26 @@ public class BlueFarSideAutonomous extends Methods {
 
 
                 climberServo.setPosition(climberArmPosition);
-                if (climberServo.getPosition() == climberArmPosition) {
+                if (climberServo.getPosition() == climberArmPosition - 0.3) {
 
-                    state++;
+
                 }
 
 
                 break;
-            case 12:
-
-                useEncoders();
-                setDrivePower(-0.6, -0.6);
-                count = calculateEncoderCountFromDistanceRefined(35);
-
-                if (haveEncodersReached(count, count)) {
-                    setDrivePower(0.0f, 0.0f);
-                    resetEncoders();
-                    state++;
-                }
-
-                break;
+//            case 12:
+//
+//                useEncoders();
+//                setDrivePower(-0.6, -0.6);
+//                count = calculateEncoderCountFromDistanceRefined(35);
+//
+//                if (haveEncodersReached(count, count)) {
+//                    setDrivePower(0.0f, 0.0f);
+//                    resetEncoders();
+//                    state++;
+//                }
+//
+//                break;
 
             case 13:
                 if (haveDriverEncodersReset()) {

@@ -70,7 +70,7 @@ public class RedFarSideAutonomous extends Methods {
                 useEncoders();
 
 
-                count = calculateEncoderCountFromDistanceRefined(238);
+                count = calculateEncoderCountFromDistanceRefined(228);
                 setDrivePower(0.6, 0.6);
 
                 if (haveEncodersReached(count, count)) {
@@ -91,7 +91,7 @@ public class RedFarSideAutonomous extends Methods {
                 useEncoders();
 
                 setDrivePower(-0.6, -0.6);
-                count = calculateEncoderCountFromDistanceRefined(55);
+                count = calculateEncoderCountFromDistanceRefined(60);
 
                 if (haveEncodersReached(count, count)) {
                     setDrivePower(0.0f, 0.0f);
@@ -120,7 +120,7 @@ public class RedFarSideAutonomous extends Methods {
                 // move till wall
                 setDrivePower(0.4, 0.4);
 
-                count = calculateEncoderCountFromDistanceRefined(34);
+                count = calculateEncoderCountFromDistanceRefined(40);
 
                 if (haveEncodersReached(count, count) || getRuntime() >= 3000.0f) {
                     setDrivePower(0.0f, 0.0f);
@@ -141,7 +141,7 @@ public class RedFarSideAutonomous extends Methods {
                 climberServo.setPosition(climberArmPosition);
                 if (climberServo.getPosition() == climberArmPosition) {
 
-                    state ++;
+
                 }
 
 
