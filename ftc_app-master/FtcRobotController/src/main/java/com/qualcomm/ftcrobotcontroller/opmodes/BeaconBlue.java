@@ -11,41 +11,12 @@ import com.qualcomm.robotcore.hardware.Servo;
  */
 public class BeaconBlue extends Methods {
 
-    Servo servoOne;
-    Servo servoTwo;
 
     private int state = 0;
     private int x = 0;
     //static int MARGIN = 2;
     private int turnValue = 0;
 
-    @Override
-    public void init() {
-        servoOne = hardwareMap.servo.get("arm");
-        servoTwo = hardwareMap.servo.get("leftS");
-        gyroSensor = hardwareMap.gyroSensor.get("gyro");
-        gyroSensor.calibrate();
-        if (gyroSensor.isCalibrating()) {
-            sleep(400);
-        }//gives the gyro time to calibrate.
-        leftMotor = hardwareMap.dcMotor.get("left");
-        rightMotor = hardwareMap.dcMotor.get("right");
-        telemetry.addData("Yo init", state);
-        //In our init method, we hardware map our motors and print out our state value.
-        //State is a variable which keeps track of the case we are on in our loop method.
-        //We also calibrate the gyrosensor.
-    }
-
-    @Override
-    public void start() {
-        super.start();
-
-        leftMotor.setDirection(DcMotor.Direction.REVERSE);
-        leftMotor.setMode(DcMotorController.RunMode.RESET_ENCODERS);
-        rightMotor.setMode(DcMotorController.RunMode.RESET_ENCODERS);
-        //In the start, we reset the encoders and set the direction of the motor.
-
-    }
 
     @Override
     public void loop() {
@@ -69,7 +40,7 @@ public class BeaconBlue extends Methods {
 
                 double count = calculateEncoderCountFromDistance(109);
 
-                setDrivePower(0.9, 0.3);
+                setDrivePower(0.6, 0.6);
 
                 //
                 // Have the motor shafts turned the required amount?
@@ -102,7 +73,7 @@ public class BeaconBlue extends Methods {
                 //set one motor to go one way, and the other motor to go the other way.
                 //This allows the robot to do a dual wheel turn
                 //For turning, we don't need the encoders,
-                if (hasGyroReachedValue(45, MARGIN)) {
+                if (hasGyroReachedValue(48, MARGIN)) {
                     //if we have reached the correct value, we set the motor power to 0, and move up a case,
                     setDrivePower(0.0f, 0.0f);
                     state++;
@@ -127,7 +98,7 @@ public class BeaconBlue extends Methods {
             case 6:
                 // turn another 45 degrees
                 setDrivePowerNoEnc(-0.08f, +0.08f);
-                if (hasGyroReachedValue(90, MARGIN)) {
+                if (hasGyroReachedValue(94, MARGIN)) {
                     setDrivePower(0.0f, 0.0f);
                     state++;
                 }
@@ -148,20 +119,13 @@ public class BeaconBlue extends Methods {
                 }
                 break;
             case 9://lower the arm. This drops the climbers
-                servoOne.setPosition(1);
-                if(servoOne.getPosition()==1){
-                    state++;
+                climberServo.setPosition(climberArmPosition);
+                if (climberServo.getPosition() == climberArmPosition - 0.3) {
 
+                    state++;
                 }
                 break;
-            case 10:
-                //raise the arm.
-                servoOne.setPosition(0);
-                if(servoOne.getPosition()==0){
-                    state++;
 
-                }
-                break;
             case 11:
                 //turn 225 degrees. Robot is parallel to mountain.
                 setDrivePowerNoEnc(-0.08f, +0.08f);
